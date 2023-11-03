@@ -45,8 +45,7 @@ public class CreatePollController {
         ArrayList<Question> questions = new ArrayList<>();
         for(Long id: questionIds) {
             questions.add(questionRepository.findById(id).orElseThrow());
-        }
-        poll.setQuestions(questions);
+        } poll.setQuestions(questions);
 
         pollRepository.save(poll);
 
