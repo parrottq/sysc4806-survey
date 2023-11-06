@@ -27,7 +27,8 @@ public class QuestionTest {
 
         {
             var question = new Question("What?", Question.Type.MultipleChoice,
-                new ArrayList<>(List.of(new Answer("1"), new Answer("3")))
+                    new ArrayList<>(List.of(new Answer("1"), new Answer("2"), new Answer("3"))),
+                    new ArrayList<>(List.of(new Answer("1"), new Answer("3")))
             );
             id = questionRepository.save(question).getId();
         }
