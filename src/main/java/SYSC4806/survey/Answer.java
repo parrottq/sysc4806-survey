@@ -3,12 +3,14 @@ package SYSC4806.survey;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 @Entity
 public class Answer implements Serializable {
-    private Long id;
+    private UUID id;
     private String answerChoice;
 
     public Answer() {
@@ -20,12 +22,12 @@ public class Answer implements Serializable {
     }
 
     @Id
-    @GeneratedValue
-    public Long getId() {
+    @UuidGenerator
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
