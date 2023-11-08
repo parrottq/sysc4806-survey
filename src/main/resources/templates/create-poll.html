@@ -2,9 +2,50 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Mini-Survey Chimp</title>
+    <link th:href="@{/index.css}" rel="stylesheet" />
+    <script type="text/javascript" th:src="@{/index.js}"></script>
 </head>
 <body>
+<div class="survey-container">
+    <div class="survey-title-container">
+        <h1 class="survey-title"><input type="text" placeholder="Survey Title"/></h1>
+    </div>
+    <div class="questions-container">
+        <!--            Will use javascript to insert question elements here-->
+        <div class="question-container">
+            <div class="question-title-container">
+                <h2><input type="text" placeholder="Question Title"/></h2>
+            </div>
+            <div class="question-choice-container">
+                <div class="question-text">
+                    <textarea disabled> </textarea>
+                </div>
+            </div>
+        </div>
+        <hr>
+    </div>
+    <div class="question-container">
+        <div class="question-title-container">
+            <h2><input type="text" placeholder="Question Title"/></h2>
+        </div>
+        <div class="question-choice-container">
+            <div class="question-choice">
+                <label><input type="radio" name="choice"></input><input type="text" placeholder="Choice"/></label>
+            </div>
+            <div class="question-choice">
+                <label><input type="radio" name="choice"></input><input type="text" placeholder="Choice"/></label>
+            </div>
+            <div class="question-choice">
+                <label><input type="radio" name="choice"></input><input type="text" placeholder="Choice"/></label>
+            </div>
+        </div>
 
+    </div>
+    <button type="button" th:onclick="createPoll()">Submit</button>
+    </div>
+<br>
 </body>
 </html>

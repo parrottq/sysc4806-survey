@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * A controller class for the creation of a poll and the included questions
@@ -41,9 +42,9 @@ public class CreatePollController {
      * @return
      */
     @PostMapping("/save-poll")
-    public String savePoll(@RequestParam Poll poll, @RequestParam Long[] questionIds, @ModelAttribute Model model) {
+    public String savePoll(@RequestParam Poll poll, @RequestParam UUID[] questionIds, @ModelAttribute Model model) {
         ArrayList<Question> questions = new ArrayList<>();
-        for(Long id: questionIds) {
+        for(UUID id: questionIds) {
             questions.add(questionRepository.findById(id).orElseThrow());
         } poll.setQuestions(questions);
 

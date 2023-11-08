@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @SpringBootTest
 public class QuestionTest {
@@ -23,7 +24,7 @@ public class QuestionTest {
             assertThat(false).isTrue(); // Should be empty
         }
 
-        Long id;
+        UUID id;
 
         {
             var question = new Question("What?", Question.Type.MultipleChoice,

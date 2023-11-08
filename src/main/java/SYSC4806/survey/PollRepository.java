@@ -4,10 +4,12 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.lang.NonNull;
 
 import java.util.Optional;
+import java.util.UUID;
 
-public interface PollRepository extends CrudRepository<Poll, Long> {
+public interface PollRepository extends CrudRepository<Poll, UUID> {
+
     @Override
-    @NonNull Optional<Poll> findById(@NonNull Long id);
+    @NonNull Optional<Poll> findById(@NonNull UUID id);
 
     @Override
     @NonNull Iterable<Poll> findAll();

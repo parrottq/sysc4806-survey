@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -23,7 +24,7 @@ public class PollTest {
                 new ArrayList<>(List.of(new Answer("1"), new Answer("3")))
         );
 
-        Long id;
+        UUID id;
         {
             var poll = new Poll("First", new ArrayList<>(List.of(question)));
             id = pollRepository.save(poll).getId();
