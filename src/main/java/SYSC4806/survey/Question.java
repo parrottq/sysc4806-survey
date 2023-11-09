@@ -6,7 +6,11 @@ import org.hibernate.annotations.UuidGenerator;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+<<<<<<< HEAD
 import java.util.UUID;
+=======
+import java.util.List;
+>>>>>>> main
 
 @Entity
 public class Question implements Serializable {
@@ -18,15 +22,17 @@ public class Question implements Serializable {
     private UUID id;
     private String title;
     private Type questionType;
+    private ArrayList<Answer> possibleChoices;
     private ArrayList<Answer> answers;
 
     public Question() {
-        this("", Type.MultipleChoice, new ArrayList<>());
+        this("", Type.MultipleChoice, new ArrayList<>(List.of()), new ArrayList<>());
     }
 
-    public Question(String title, Type questionType, ArrayList<Answer> answers) {
+    public Question(String title, Type questionType, ArrayList<Answer> possibleChoices, ArrayList<Answer> answers) {
         this.title = title;
         this.questionType = questionType;
+        this.possibleChoices = possibleChoices;
         this.answers = answers;
     }
 
@@ -54,6 +60,15 @@ public class Question implements Serializable {
 
     public void setQuestionType(Type questionType) {
         this.questionType = questionType;
+    }
+
+    @OneToMany(cascade = { CascadeType.PERSIST })
+    public Collection<Answer> getPossibleChoices() {
+        return possibleChoices;
+    }
+
+    public void setPossibleChoices(Collection<Answer> possibleChoices) {
+        this.possibleChoices = new ArrayList<>(possibleChoices);
     }
 
     @OneToMany(cascade = { CascadeType.PERSIST })

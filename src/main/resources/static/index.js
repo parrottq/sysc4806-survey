@@ -10,6 +10,20 @@ function createPoll() {
     let questions = [];
     //Formats each question into a json format
     $('.question-container').each(function(index, element) {
+        let question;
+        if(element.find('select').val() === "MultipleChoice") {
+            // question = {
+            //     "id" : generateUUID(),
+            //     ""
+            // }
+        } else if (element.find('select').val() === "Text") {
+            
+
+        } else {
+            alert("Unknown element selected")
+        }
+
+
         // let question = {
         //     "id"    : generateUUID(),
         //     "title" : element.find('.question-title'),
