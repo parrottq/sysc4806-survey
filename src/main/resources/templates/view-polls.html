@@ -11,6 +11,7 @@
         <p th:text="'   Name: ' + ${poll.title}"></p>
         <div th:each="question: ${poll.questions}">
             <p th:text="'Question-Title: ' + ${question.title}"/>
+            <p th:text="'Type: ' + ${question.questionType}"/>
             <div th:each="choice: ${question.possibleChoices}">
                 <p th:text="'Choice: ' + ${choice.getAnswerChoice()}"/>
             </div>
