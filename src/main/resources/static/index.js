@@ -3,7 +3,13 @@
 function generateUUID() {
     return this.crypto.randomUUID();
 }
-
+//TODO
+// 1. Get the post to create polls on server side
+// 2. Create + and - buttons to create questions (html elements)
+// 3. Create js listeners for when a type is selected/changed
+//     3.a Change dom to have the correct format for questions from the select
+// 4. Add + and - for MC choices
+// 5. ensure submit still works / tests
 
 // Goes through the elements of a poll everywhere create survey and submits them via post to the backend
 function createPoll() {
