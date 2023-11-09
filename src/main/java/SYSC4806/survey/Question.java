@@ -6,27 +6,26 @@ import org.hibernate.annotations.UuidGenerator;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
-<<<<<<< HEAD
 import java.util.UUID;
-=======
 import java.util.List;
->>>>>>> main
+
 
 @Entity
 public class Question implements Serializable {
 
     public enum Type {
-        MultipleChoice
+        MultipleChoice,
+        Text
     }
 
     private UUID id;
     private String title;
     private Type questionType;
-    private ArrayList<Answer> possibleChoices;
-    private ArrayList<Answer> answers;
+    private ArrayList<Answer> possibleChoices;  //Only for MC
+    private ArrayList<Answer> answers;  //All answers(responses from user)
 
     public Question() {
-        this("", Type.MultipleChoice, new ArrayList<>(List.of()), new ArrayList<>());
+        this("", Type.Text, new ArrayList<>(List.of()), new ArrayList<>());
     }
 
     public Question(String title, Type questionType, ArrayList<Answer> possibleChoices, ArrayList<Answer> answers) {
@@ -37,7 +36,7 @@ public class Question implements Serializable {
     }
 
     @Id
-    @UuidGenerator
+    @GeneratedValue(strategy = GenerationType.UUID)
     public UUID getId() {
         return id;
     }

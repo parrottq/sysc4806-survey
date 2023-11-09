@@ -12,13 +12,13 @@
 <body>
 <div class="survey-container">
     <div class="survey-title-container">
-        <h1 class="survey-title"><input type="text" placeholder="Survey Title"/></h1>
+        <h1 ><input id="survey-title" type="text" placeholder="Survey Title"/></h1>
     </div>
     <div class="questions-container">
         <!--            Will use javascript to insert question elements here-->
         <div class="question-container">
 
-            <select name="question-type">
+            <select class="question-type" name="question-type">
                 <option value="Text">Text</option>
                 <option value="MultipleChoice">Multiple Choice</option>
             </select>
@@ -27,26 +27,32 @@
                 <h2><input type="text" placeholder="Question Title"/></h2>
             </div>
             <div class="question-choice-container">
-                <div class="question-text">
-                    <textarea disabled> </textarea>
-                </div>
+<!--                <div class="question-text">-->
+<!--                    <textarea disabled> </textarea>-->
+<!--                </div>-->
             </div>
         </div>
         <hr>
     </div>
     <div class="question-container">
+
+        <select class="question-type" name="question-type">
+            <option value="Text">Text</option>
+            <option value="MultipleChoice">Multiple Choice</option>
+        </select>
+
         <div class="question-title-container">
-            <h2><input type="text" placeholder="Question Title"/></h2>
+            <h2><input class="question-title" type="text" placeholder="Question Title"/></h2>
         </div>
         <div class="question-choice-container">
             <div class="question-choice">
-                <label><input type="radio" name="choice"></input><input type="text" placeholder="Choice"/></label>
+                <label><input type="text" placeholder="Choice"/></label>
             </div>
             <div class="question-choice">
-                <label><input type="radio" name="choice"></input><input type="text" placeholder="Choice"/></label>
+                <label><input type="text" placeholder="Choice"/></label>
             </div>
             <div class="question-choice">
-                <label><input type="radio" name="choice"></input><input type="text" placeholder="Choice"/></label>
+                <label><input type="text" placeholder="Choice"/></label>
             </div>
         </div>
 

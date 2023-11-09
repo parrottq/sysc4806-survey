@@ -37,22 +37,19 @@ public class CreatePollController {
     /**
      * Looks up the question ids and adds them to a poll object. Then saves the poll.
      * @param poll
-     * @param questionIds
      * @param model
      * @return
      */
     @PostMapping("/save-poll")
-    public String savePoll(@RequestParam Poll poll, @RequestParam UUID[] questionIds, @ModelAttribute Model model) {
-        ArrayList<Question> questions = new ArrayList<>();
-        for(UUID id: questionIds) {
-            questions.add(questionRepository.findById(id).orElseThrow());
-        } poll.setQuestions(questions);
+    public String savePoll(@RequestParam Poll poll, @ModelAttribute Model model) {
+        System.out.println("Received Poll" + poll.getTitle());
+//        pollRepository.save(poll);
+        System.out.println(poll);
+        //UUID uuid = UUID.randomUUID();
 
-        pollRepository.save(poll);
-
-        model.addAttribute("poll", poll);
-
-        return "view-poll";
+        //model.addAttribute("poll", poll);
+        model.addAttribute("poll", new Poll());
+        return "create-poll";
     }
 
     /**

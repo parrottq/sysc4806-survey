@@ -23,7 +23,7 @@ public class Answer implements Serializable {
     }
 
     @Id
-    @UuidGenerator
+    @GeneratedValue(strategy = GenerationType.UUID)
     public UUID getId() {
         return id;
     }
