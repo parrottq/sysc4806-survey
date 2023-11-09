@@ -30,7 +30,7 @@ function createPoll() {
             })
 
             question = {
-                "id" : generateUUID(),
+                // "id" : generateUUID(),
                 "title" : $(this).find('.question-title-container input').val(),
                 "questionType" : $(this).find('select').val(),
                 "possibleChoices" : choices,
@@ -39,7 +39,7 @@ function createPoll() {
 
         } else if ($(this).find('select').val() === "Text") {
             question = {
-                "id" : generateUUID(),
+                // "id" : generateUUID(),
                 "title" : $(this).find('.question-title-container input').val(),
                 "questionType" : $(this).find('select').val(),
                 "possibleChoices" : emptyArray,
@@ -60,36 +60,18 @@ function createPoll() {
         "questions" : questions
     }
 
-    let o = {
-        "poll": poll
-    }
-    console.log(JSON.stringify(o));
-
-    //Send via ajax
-    $.post('/save-poll', {
-        poll: JSON.stringify(o)
-    }, function(data) {
-        var json = JSON.parse(data);
-
-
-    }).done(function() {
-    }).fail(function(xhr, textStatus, errorThrown) {
-        alert(errorThrown);
-    }).complete(function() {
-        alert("Complete");
+    $.ajax({
+        type: 'POST',
+        url: '/save-poll',
+        data: JSON.stringify(poll),
+        contentType: "application/json; charset=utf-8",
+        success: function(text) {
+            alert("Success");
+        },
+        error: function() {
+            alert("Error");
+        }
     });
-    // $.ajax({
-    //     type: 'POST',
-    //     url: '/save-poll',
-    //     data: { 'poll': poll },
-    //     // dataType: "json",
-    //     // contentType: "application/json; charset=utf-8",
-    //     success: function(text) {
-    //         alert("Success");
-    //     },
-    //     error: function() {
-    //         alert("Error");
-    //     }
 
 
 

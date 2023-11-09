@@ -78,4 +78,8 @@ public class Question implements Serializable {
     public void setAnswers(Collection<Answer> answers) {
         this.answers = new ArrayList<>(answers);
     }
+
+    public String toString() {
+        
+    }
 }

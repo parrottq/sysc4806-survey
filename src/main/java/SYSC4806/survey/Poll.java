@@ -60,4 +60,14 @@ public class Poll implements Serializable {
     public void setClosed(boolean closed) {
         isClosed = closed;
     }
+
+    public String toString() {
+        String s = "";
+        s += "Survey-Title:" + title;
+        s += "|isClosed:" + isClosed;
+        s += "|id:" + id;
+        s += "|questions:" + questions;
+
+        return s;
+    }
 }

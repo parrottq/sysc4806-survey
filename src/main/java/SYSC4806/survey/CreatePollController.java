@@ -4,13 +4,14 @@ import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 /**
  * A controller class for the creation of a poll and the included questions
@@ -30,26 +31,36 @@ public class CreatePollController {
     @GetMapping(value={"/","/create"})
     public String createPoll(Model model) {
         model.addAttribute("poll", new Poll());
+//        model.addAttribute("id", UUID.randomUUID());
+//        model.addAttribute("title", new String());
 
         return "create-poll";
     }
 
-    /**
-     * Looks up the question ids and adds them to a poll object. Then saves the poll.
-     * @param poll
-     * @param model
-     * @return
-     */
+    //Only for testing purposes
+    @GetMapping(value="/view-polls")
+    public String viewPolls(Model model) {
+        List<Poll> polls = StreamSupport.stream(pollRepository.findAll().spliterator(), false)
+                .collect(Collectors.toList());
+        model.addAttribute("polls", polls);
+        return "view-polls";
+    }
+
+
+
     @PostMapping("/save-poll")
-    public String savePoll(@RequestParam Poll poll, @ModelAttribute Model model) {
-        System.out.println("Received Poll" + poll.getTitle());
-//        pollRepository.save(poll);
-        System.out.println(poll);
+    public String savePoll(@RequestBody Poll poll, ModelMap modelMap) {
+        System.out.println("Received Poll: " + poll.getTitle());
+
+        pollRepository.save(poll);
         //UUID uuid = UUID.randomUUID();
 
         //model.addAttribute("poll", poll);
-        model.addAttribute("poll", new Poll());
-        return "create-poll";
+        //model.addAttribute("poll", new Poll());
+        List<Poll> polls = StreamSupport.stream(pollRepository.findAll().spliterator(), false)
+                        .collect(Collectors.toList());
+        modelMap.addAttribute("polls", polls);
+        return "view-polls";
     }
 
     /**
