@@ -30,7 +30,7 @@ function createPoll() {
             })
 
             question = {
-                // "id" : generateUUID(),
+                "id" : generateUUID(),
                 "title" : $(this).find('.question-title-container input').val(),
                 "questionType" : $(this).find('select').val(),
                 "possibleChoices" : choices,
@@ -39,7 +39,7 @@ function createPoll() {
 
         } else if ($(this).find('select').val() === "Text") {
             question = {
-                // "id" : generateUUID(),
+                "id" : generateUUID(),
                 "title" : $(this).find('.question-title-container input').val(),
                 "questionType" : $(this).find('select').val(),
                 "possibleChoices" : emptyArray,

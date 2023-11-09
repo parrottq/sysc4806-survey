@@ -21,7 +21,10 @@ public class CreatePollController {
 
     @Autowired
     private PollRepository pollRepository;
+    @Autowired
     private QuestionRepository questionRepository;
+    @Autowired
+    private AnswerRepository answerRepository;
 
     /**
      * Creates a new poll for the homepage
@@ -50,7 +53,13 @@ public class CreatePollController {
 
     @PostMapping("/save-poll")
     public String savePoll(@RequestBody Poll poll, ModelMap modelMap) {
-        System.out.println("Received Poll: " + poll.getTitle());
+        System.out.println(poll);
+        for(Question q: poll.getQuestions()) {
+            for(Answer a: q.getPossibleChoices()) {
+                answerRepository.save(a);
+            }
+            questionRepository.save(q);
+        }
 
         pollRepository.save(poll);
         //UUID uuid = UUID.randomUUID();

@@ -80,6 +80,11 @@ public class Question implements Serializable {
     }
 
     public String toString() {
-        
+        String s = "";
+        s += "Title:" + title;
+        s += "|id:" + id;
+        s += "|choices:" + possibleChoices;
+
+        return s;
     }
 }

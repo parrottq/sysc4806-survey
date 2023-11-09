@@ -39,4 +39,8 @@ public class Answer implements Serializable {
     public void setAnswerChoice(String answerChoice) {
         this.answerChoice = answerChoice;
     }
+
+    public String toString() {
+        return answerChoice;
+    }
 }
