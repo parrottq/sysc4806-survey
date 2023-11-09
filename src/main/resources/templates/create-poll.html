@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Mini-Survey Chimp</title>
     <link th:href="@{/index.css}" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script type="text/javascript" th:src="@{/index.js}"></script>
 </head>
 <body>
@@ -16,6 +17,12 @@
     <div class="questions-container">
         <!--            Will use javascript to insert question elements here-->
         <div class="question-container">
+
+            <select name="question-type">
+                <option value="Text">Text</option>
+                <option value="MultipleChoice">Multiple Choice</option>
+            </select>
+
             <div class="question-title-container">
                 <h2><input type="text" placeholder="Question Title"/></h2>
             </div>
