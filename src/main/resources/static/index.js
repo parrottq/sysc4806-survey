@@ -87,11 +87,6 @@ function generateUUID() {
     return this.crypto.randomUUID();
 }
 
-function createPoll() {
-    alert($('#survey-title').val());
-
-}
-
 function addChoice(element) {
     $(element).parent().parent().append(getChoiceElement());
 }
