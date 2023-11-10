@@ -1,10 +1,6 @@
 
-// Generates a UUID in the format expected by the backend
-function generateUUID() {
-    return this.crypto.randomUUID();
-}
 //TODO
-// 1. Get the post to create polls on server side
+// 1. Get the post to create polls on server side - CHECK
 // 2. Create + and - buttons to create questions (html elements)
 // 3. Create js listeners for when a type is selected/changed
 //     3.a Change dom to have the correct format for questions from the select
@@ -72,8 +68,58 @@ function createPoll() {
             alert("Error");
         }
     });
+}
 
 
+function getTextQuestion() {
+    return "<div class='question-container'><select class='question-type' name='question-type' onchange='changeQuestionType(this)'><option value='Text'>Text</option><option value='MultipleChoice'>Multiple Choice</option></select><button onClick='removeQuestion(this)' style='opacity: 0%'><i style='opacity: 0%' class='fa-solid fa-trash'></i></button><div class='question-title-container'><h2><input type='text' placeholder='Question Title'/></h2></div><div class='question-choice-container'></div><hr></div></div>";
+}
+
+function getChoiceQuestion() {
+    return '<div class="question-container"><select class="question-type" name="question-type" onchange="changeQuestionType(this)"><option value="Text">Text</option><option selected value="MultipleChoice">Multiple Choice</option></select><button onClick="removeQuestion(this)" style="opacity: 0%"><i                             style="opacity:0%" class="fa-solid fa-trash"></i></button><div class="question-title-container"><h2><input class="question-title" type="text" placeholder="Question Title"/></h2></div><div class="question-choice-container"><div class="question-choice"><label><input type="text" placeholder="Choice"/></label><button onClick="removeChoice(this)" style="opacity: 0%"><i                           style="opacity:0%" class="fa-solid fa-trash"></i></button><button onClick="addChoice(this)" style="opacity: 0%"><i                           style="opacity:0%" class="fa-solid fa-plus"></i></button></div><div class="question-choice"><label><input type="text" placeholder="Choice"/></label><button onClick="removeChoice(this)" style="opacity: 0%"><i                           style="opacity:0%" class="fa-solid fa-trash"></i></button><button onClick="addChoice(this)" style="opacity: 0%"><i                           style="opacity:0%" class="fa-solid fa-plus"></i></button></div><div class="question-choice"><label><input type="text" placeholder="Choice"/></label><button onClick="removeChoice(this)" style="opacity: 0%"><i                           style="opacity:0%" class="fa-solid fa-trash"></i></button><button onClick="addChoice(this)" style="opacity: 0%"><i                           style="opacity:0%" class="fa-solid fa-plus"></i></button></div></div><hr></div>';
+}
+
+function getChoiceElement() {
+    return '<div class="question-choice"><label><input type="text" placeholder="Choice"/></label><button onClick="removeChoice(this)" style="opacity: 0%"><i                           style="opacity:0%" class="fa-solid fa-trash"></i></button><button onClick="addChoice(this)" style="opacity: 0%"><i                           style="opacity:0%" class="fa-solid fa-plus"></i></button></div>'
+}
+
+function generateUUID() {
+    return this.crypto.randomUUID();
+}
+
+function createPoll() {
+    alert($('#survey-title').val());
 
 }
+
+function addChoice(element) {
+    $(element).parent().parent().append(getChoiceElement());
+}
+
+function removeQuestion(element) {
+    $(element).parent().remove();
+}
+
+function removeChoice(element) {
+    $(element).parent().remove();
+}
+
+function addQuestion(element) {
+
+    $(".questions-container").append(getTextQuestion());
+}
+
+function changeQuestionType(element) {
+
+    //Grab the dropdown value
+    let choice = $(element).val();
+
+    if(choice === "MultipleChoice") {
+        $(element).parent().replaceWith(getChoiceQuestion());
+    } else {
+        $(element).parent().replaceWith(getTextQuestion());
+    }
+}
+
+
 

@@ -59,21 +59,8 @@ div {
 
 }
 
-.question-text textarea {
-    border-color: var(--edge-color);
-    border-style: solid;
-    width: 95%;
-    height: 3em;
-    padding: 5px;
-    border-radius: 5px;
-    font-family: Rubik;
-
-    background-color: #d6d8d8;
-
-    min-height:3em;
-    resize: none;
-    overflow: hidden;
-
+#survey-title {
+    font-size: 30px;
 }
 
 .question-choice {
@@ -93,20 +80,100 @@ hr {
     border-radius:10px;
 }
 
-button {
+.button-bar {
+    position: fixed;
+    bottom: 0.25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 100%;
+    margin: 0;
+
+    display: flex;
+    flex-direction: row;
+    flex-basis: auto;
+    justify-content: space-around;
+    gap: 25%;
+    width: 70%;
+    margin: auto;
+}
+
+.submit-button {
     background-color: var(--button-color);
     padding: 0.7em;
     border-radius: 5px;
     border-style: none;
-    display: block;
     margin-right: auto;
     color: white;
     font-family: Rubik;
-    margin-left: 85%;
     transition: all .2s ease-in-out;
+    flex-grow: 1;
+
 }
 
-button:hover {
+.submit-button:hover {
     cursor: pointer;
     transform: scale(1.1);
+}
+
+.add-subtract-container {
+    display: flex;
+    border-style: solid;
+    border-color: black;
+
+}
+
+.add-subtract-container button {
+    display:flex;
+    flex-grow: 1;
+
+
+}
+
+.add-button {
+    background-color: #46eb34;
+}
+
+.subtract-button {
+    background-color: red;
+}
+
+.question-container {
+    padding: 0.5em;
+}
+
+.question-container:hover {
+    background-color: #d9dedb;
+    transition: all .4s ease-in-out;
+    opacity: 100%;
+}
+
+.question-container:hover > button{
+    opacity: 100% !important;
+    transition: all .4s ease-in-out;
+}
+
+.question-container > button {
+    float: right;
+}
+
+.question-container:hover i{
+    opacity: 100% !important;
+    transition: all .4s ease-in-out;
+}
+
+.question-choice:hover button {
+    opacity: 100% !important;
+    transition: all .4s ease-in-out;
+}
+
+.question-choice:hover i {
+    opacity: 100% !important;
+    transition: all .4s ease-in-out;
+}
+
+input {
+    width: 70%;
+    margin: 2px;
+    font-family: Rubik;
 }

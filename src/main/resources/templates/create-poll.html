@@ -6,10 +6,17 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Mini-Survey Chimp</title>
     <link th:href="@{/index.css}" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/e46718ba3d.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script type="text/javascript" th:src="@{/index.js}"></script>
 </head>
 <body>
+<div class="button-bar">
+    <button class="add-question-button submit-button" type="button" onClick="addQuestion(this)">Add Question</button>
+    <button class="submit-button" type="button" onClick="createPoll()">Create Poll</button>
+
+</div>
+
 <div class="survey-container">
     <div class="survey-title-container">
         <h1 ><input id="survey-title" type="text" placeholder="Survey Title"/></h1>
@@ -17,48 +24,53 @@
     <div class="questions-container">
         <!--            Will use javascript to insert question elements here-->
         <div class="question-container">
-
-            <select class="question-type" name="question-type">
+            <select class="question-type" name="question-type" onchange="changeQuestionType(this)">
                 <option value="Text">Text</option>
                 <option value="MultipleChoice">Multiple Choice</option>
             </select>
+            <button onClick="removeQuestion(this)" style="opacity: 0%"><i style="opacity: 0%" class="fa-solid fa-trash"></i></button>
 
             <div class="question-title-container">
                 <h2><input type="text" placeholder="Question Title"/></h2>
             </div>
+
             <div class="question-choice-container">
-<!--                <div class="question-text">-->
-<!--                    <textarea disabled> </textarea>-->
-<!--                </div>-->
             </div>
+            <hr>
         </div>
-        <hr>
+
+
     </div>
     <div class="question-container">
-
-        <select class="question-type" name="question-type">
+        <select class="question-type" name="question-type" onchange="changeQuestionType(this)">
             <option value="Text">Text</option>
-            <option value="MultipleChoice">Multiple Choice</option>
+            <option selected value="MultipleChoice">Multiple Choice</option>
         </select>
-
+        <button onClick="removeQuestion(this)" style="opacity: 0%"><i                             style="opacity:0%" class="fa-solid fa-trash"></i></button>
         <div class="question-title-container">
             <h2><input class="question-title" type="text" placeholder="Question Title"/></h2>
         </div>
         <div class="question-choice-container">
             <div class="question-choice">
                 <label><input type="text" placeholder="Choice"/></label>
+                <button onClick="removeChoice(this)" style="opacity: 0%"><i                           style="opacity:0%" class="fa-solid fa-trash"></i></button>
+                <button onClick="addChoice(this)" style="opacity: 0%"><i                           style="opacity:0%" class="fa-solid fa-plus"></i></button>
             </div>
             <div class="question-choice">
                 <label><input type="text" placeholder="Choice"/></label>
+                <button onClick="removeChoice(this)" style="opacity: 0%"><i                           style="opacity:0%" class="fa-solid fa-trash"></i></button>
+                <button onClick="addChoice(this)" style="opacity: 0%"><i                           style="opacity:0%" class="fa-solid fa-plus"></i></button>
             </div>
             <div class="question-choice">
                 <label><input type="text" placeholder="Choice"/></label>
+                <button onClick="removeChoice(this)" style="opacity: 0%"><i                           style="opacity:0%" class="fa-solid fa-trash"></i></button>
+                <button onClick="addChoice(this)" style="opacity: 0%"><i                           style="opacity:0%" class="fa-solid fa-plus"></i></button>
             </div>
         </div>
-
+        <hr>
     </div>
-    <button type="button" th:onclick="createPoll()">Submit</button>
-    </div>
+</div>
 <br>
+
 </body>
 </html>
