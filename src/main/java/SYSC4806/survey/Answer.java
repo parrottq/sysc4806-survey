@@ -24,6 +24,7 @@ public class Answer implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+
     public UUID getId() {
         return id;
     }
