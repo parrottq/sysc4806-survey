@@ -1,25 +1,22 @@
 
 //TODO
-// 1. Get the post to create polls on server side - CHECK
-// 2. Create + and - buttons to create questions (html elements)
-// 3. Create js listeners for when a type is selected/changed
-//     3.a Change dom to have the correct format for questions from the select
-// 4. Add + and - for MC choices
-// 5. ensure submit still works / tests
+// 1. Controller Tests
 
-// Goes through the elements of a poll everywhere create survey and submits them via post to the backend
+/**
+ * Formats the input fields into a format acceptable for a Poll object
+ */
 function createPoll() {
     let questions = [];
     let emptyArray = [];
 
     //Formats each question into a json format
     $('.question-container').each(function(index, element) {
-        // console.log(JSON.stringify($(this)));
-        // console.log(JSON.stringify($(this).find('select')));
+
         let question;
+        //Checks what kind of question it is (MC, Text, etc)
         if($(this).find('select').val() === "MultipleChoice") {
 
-            //Get all question choices
+            //Format choices into array
             let choices = [];
             $('.question-choice').each(function(index, element) {
                 choices.push($(this).find('input').val());
@@ -56,6 +53,7 @@ function createPoll() {
         "questions" : questions
     }
 
+    //Send to the backend
     $.ajax({
         type: 'POST',
         url: '/save-poll',
@@ -70,40 +68,73 @@ function createPoll() {
     });
 }
 
-
+/**
+ * Returns a text question element in a question container
+ * @returns {string} question container element
+ */
 function getTextQuestion() {
     return "<div class='question-container'><select class='question-type' name='question-type' onchange='changeQuestionType(this)'><option value='Text'>Text</option><option value='MultipleChoice'>Multiple Choice</option></select><button onClick='removeQuestion(this)' style='opacity: 0%'><i style='opacity: 0%' class='fa-solid fa-trash'></i></button><div class='question-title-container'><h2><input type='text' placeholder='Question Title'/></h2></div><div class='question-choice-container'></div><hr></div></div>";
 }
-
+/**
+ * Returns a multiple choice question element in a question container
+ * @returns {string} question container element
+ */
 function getChoiceQuestion() {
     return '<div class="question-container"><select class="question-type" name="question-type" onchange="changeQuestionType(this)"><option value="Text">Text</option><option selected value="MultipleChoice">Multiple Choice</option></select><button onClick="removeQuestion(this)" style="opacity: 0%"><i                             style="opacity:0%" class="fa-solid fa-trash"></i></button><div class="question-title-container"><h2><input class="question-title" type="text" placeholder="Question Title"/></h2></div><div class="question-choice-container"><div class="question-choice"><label><input type="text" placeholder="Choice"/></label><button onClick="removeChoice(this)" style="opacity: 0%"><i                           style="opacity:0%" class="fa-solid fa-trash"></i></button><button onClick="addChoice(this)" style="opacity: 0%"><i                           style="opacity:0%" class="fa-solid fa-plus"></i></button></div><div class="question-choice"><label><input type="text" placeholder="Choice"/></label><button onClick="removeChoice(this)" style="opacity: 0%"><i                           style="opacity:0%" class="fa-solid fa-trash"></i></button><button onClick="addChoice(this)" style="opacity: 0%"><i                           style="opacity:0%" class="fa-solid fa-plus"></i></button></div><div class="question-choice"><label><input type="text" placeholder="Choice"/></label><button onClick="removeChoice(this)" style="opacity: 0%"><i                           style="opacity:0%" class="fa-solid fa-trash"></i></button><button onClick="addChoice(this)" style="opacity: 0%"><i                           style="opacity:0%" class="fa-solid fa-plus"></i></button></div></div><hr></div>';
 }
-
+/**
+ * Returns a multiple choice questions "choice" element
+ * @returns {string} question choice container element
+ */
 function getChoiceElement() {
     return '<div class="question-choice"><label><input type="text" placeholder="Choice"/></label><button onClick="removeChoice(this)" style="opacity: 0%"><i                           style="opacity:0%" class="fa-solid fa-trash"></i></button><button onClick="addChoice(this)" style="opacity: 0%"><i                           style="opacity:0%" class="fa-solid fa-plus"></i></button></div>'
 }
 
+/**
+ * Generates a UUID in the format the backend expects
+ * @returns {`${string}-${string}-${string}-${string}-${string}`}
+ */
 function generateUUID() {
     return this.crypto.randomUUID();
 }
 
+/**
+ * Adds a choice element to the button it was called from
+ * @param element
+ */
 function addChoice(element) {
     $(element).parent().parent().append(getChoiceElement());
 }
 
+/**
+ * Removes a question element and container from the button it was called from
+ * @param element
+ */
 function removeQuestion(element) {
     $(element).parent().remove();
 }
 
+/**
+ * Removes a choice element and container from the button it was called from
+ * @param element
+ */
 function removeChoice(element) {
     $(element).parent().remove();
 }
 
+/**
+ * Adds a question element and container to the button it was called from
+ * @param element
+ */
 function addQuestion(element) {
 
     $(".questions-container").append(getTextQuestion());
 }
 
+/**
+ * Changes the question elements from the container it was called from to the specified question type
+ * @param element
+ */
 function changeQuestionType(element) {
 
     //Grab the dropdown value

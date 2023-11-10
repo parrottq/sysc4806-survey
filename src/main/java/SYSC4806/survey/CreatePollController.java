@@ -34,8 +34,6 @@ public class CreatePollController {
     @GetMapping(value={"/","/create"})
     public String createPoll(Model model) {
         model.addAttribute("poll", new Poll());
-//        model.addAttribute("id", UUID.randomUUID());
-//        model.addAttribute("title", new String());
 
         return "create-poll";
     }
@@ -49,8 +47,12 @@ public class CreatePollController {
         return "view-polls";
     }
 
-
-
+    /**
+     * Saves a poll passed to it to the repository
+     * @param poll
+     * @param modelMap
+     * @return
+     */
     @PostMapping("/save-poll")
     public String savePoll(@RequestBody Poll poll, ModelMap modelMap) {
         System.out.println(poll);
@@ -62,24 +64,10 @@ public class CreatePollController {
         }
 
         pollRepository.save(poll);
-        //UUID uuid = UUID.randomUUID();
 
-        //model.addAttribute("poll", poll);
-        //model.addAttribute("poll", new Poll());
         List<Poll> polls = StreamSupport.stream(pollRepository.findAll().spliterator(), false)
                         .collect(Collectors.toList());
         modelMap.addAttribute("polls", polls);
         return "view-polls";
     }
-
-    /**
-     * Saves an individual question to the database
-     * @param question
-     * @param model
-     */
-    @PostMapping("/save-question")
-    public void saveQuestion(@RequestParam Question question, @ModelAttribute Model model) {
-        questionRepository.save(question);
-    }
-
 }

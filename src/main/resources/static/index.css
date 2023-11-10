@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
 
+/*General Page Rules*/
+
 :root {
     --background: #31547A;
     --foreground: #E9F1FA;
@@ -15,13 +17,8 @@ html {
     min-height: 100vh;
 }
 
-/*Testing stuff*/
-div {
-    /*     border-color: var(--edge-color);
-        border-style: solid; */
-}
-
 /*General Survey Formatting*/
+
 .survey-container {
     font-family: Rubik;
 
@@ -123,20 +120,7 @@ hr {
 
 }
 
-.add-subtract-container button {
-    display:flex;
-    flex-grow: 1;
-
-
-}
-
-.add-button {
-    background-color: #46eb34;
-}
-
-.subtract-button {
-    background-color: red;
-}
+/*Question Related Formatting*/
 
 .question-container {
     padding: 0.5em;
