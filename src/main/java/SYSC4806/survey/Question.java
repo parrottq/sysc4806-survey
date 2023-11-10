@@ -1,11 +1,13 @@
 package SYSC4806.survey;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 public class Question implements Serializable {
@@ -14,7 +16,7 @@ public class Question implements Serializable {
         MultipleChoice
     }
 
-    private Long id;
+    private UUID id;
     private String title;
     private Type questionType;
     private ArrayList<Answer> possibleChoices;
@@ -32,12 +34,12 @@ public class Question implements Serializable {
     }
 
     @Id
-    @GeneratedValue
-    public Long getId() {
+    @UuidGenerator
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

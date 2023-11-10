@@ -1,15 +1,17 @@
 package SYSC4806.survey;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.UUID;
 
 @Entity
 public class Poll implements Serializable {
 
-    private Long id;
+    private UUID id;
     private String title;
     private ArrayList<Question> questions;
     private boolean isClosed;
@@ -25,12 +27,12 @@ public class Poll implements Serializable {
     }
 
     @Id
-    @GeneratedValue
-    public Long getId() {
+    @UuidGenerator
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
