@@ -1,0 +1,49 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Current Poll</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--    <div th:object="${poll}">-->
+<!--        <hr>-->
+<!--        <p th:text="'ID: ' + ${poll.id}"></p>-->
+<!--        <p th:text="'   Name: ' + ${poll.title}"></p>-->
+<!--        <div th:each="question: ${poll.questions}">-->
+<!--            <p th:text="'Question-Title: ' + ${question.title}"></p>-->
+<!--            <div th:each="choice: ${question.possibleChoices}">-->
+<!--                <p th:text="'Choice: ' + ${choice.getAnswerChoice()}"></p>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <hr>-->
+<!--    <button id="exit" class="exit-button" type="button"> Exit Poll</button>-->
+<!--    <script type="text/javascript">-->
+<!--        document.getElementById("exit").onclick = function (){-->
+<!--            location.href = "http://localhost:8080/display-polls";-->
+<!--        }-->
+<!--    </script>-->
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:each="poll: ${polls}">
+    <hr>
+    <p th:text="'ID: ' + ${poll.id}" />
+    <p th:text="'   Name: ' + ${poll.title}"></p>
+    <div th:each="question: ${poll.questions}">
+        <p th:text="'Question-Title: ' + ${question.title}"></p>
+        <p th:text="'Type: ' + ${question.questionType}"></p>
+        <div th:each="choice: ${question.possibleChoices}">
+            <p th:text="'Choice: ' + ${choice.getAnswerChoice()}"/>
+        </div>
+    </div>
+</div>
+</body>
+</html>

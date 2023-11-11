@@ -147,5 +147,10 @@ function changeQuestionType(element) {
     }
 }
 
+function redirectToPoll(id){
+    console.log(id);
+    location.href =  "/current-poll/?id=" + id;
+}
+
 
 
