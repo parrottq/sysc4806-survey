@@ -55,11 +55,11 @@ public class PollTest {
 
         poll.setTitle(title);
         poll.setQuestions(questions);
-        assertFalse(poll.isClosed());
-        poll.setClosed(true);
-
         assertEquals(title, poll.getTitle());
         assertEquals(questions, poll.getQuestions());
+
+        assertFalse(poll.isClosed());
+        poll.setClosed(true);
         assertTrue(poll.isClosed());
     }
 }
