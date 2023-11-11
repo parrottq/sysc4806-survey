@@ -1,6 +1,7 @@
 package SYSC4806.survey.tests;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import SYSC4806.survey.Answer;
 import SYSC4806.survey.Question;
@@ -45,4 +46,27 @@ public class QuestionTest {
             assertThat(answers.get(1).getAnswerChoice()).isEqualTo("3");
         }
     }
+
+    @Test
+    void testSettersAndGetters() {
+        Question question = new Question();
+        String title = "My Questions";
+        Question.Type type = Question.Type.MultipleChoice;
+        List<Answer> possibleChoices = new ArrayList<>();
+        possibleChoices.add(new Answer("Choice 1"));
+        possibleChoices.add(new Answer("Choice 2"));
+        List<Answer> answers = new ArrayList<>();
+        answers.add(new Answer("Choice 1"));
+
+        question.setTitle(title);
+        question.setQuestionType(type);
+        question.setPossibleChoices(possibleChoices);
+        question.setAnswers(answers);
+
+        assertEquals(title, question.getTitle());
+        assertEquals(type, question.getQuestionType());
+        assertEquals(possibleChoices, question.getPossibleChoices());
+        assertEquals(answers, question.getAnswers());
+    }
+
 }
