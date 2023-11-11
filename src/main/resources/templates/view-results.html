@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>view-results</title>
+</head>
+<body>
+<div>
+    <div th:text="${poll}">
+        <div th:each="question: poll.questions">
+            <hr>
+            <p th:text="'ID: ' + ${question.id}"></p>
+            <p th:text="'   Question: ' + ${question.title}"></p>
+            <div th:switch="${question.questionType}">
+                <p th:case="'MultipleChoice'">
+                <div th:each="answer: ${question.answers}">
+                    <div th:each="choice: ${question.possibleChoices}">
+                        <p th:text="'Choice: ' + ${choice.getAnswerChoice()}"></p>
+                    </div>
+                </div>
+                </p>
+                <p th:case="*">
+                <p>Answers: </p>
+                <div th:each="answer: ${question.answers}">
+                    <p th:text="${answer.getAnswerChoice()}"></p>
+                    <br>
+                </div>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
