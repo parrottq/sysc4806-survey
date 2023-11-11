@@ -1,0 +1,163 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+
+/*General Page Rules*/
+
+:root {
+    --background: #31547A;
+    --foreground: #E9F1FA;
+    --text-color: #292E33;
+    --edge-color: #c8cecd;
+    --fade-color: #7681B3;
+    --button-color: #00ABE4;
+}
+
+html {
+    background: linear-gradient(white,white);
+
+    min-height: 100vh;
+}
+
+/*General Survey Formatting*/
+
+.survey-container {
+    font-family: Rubik;
+
+    border-color: var(--edge-color);
+    border-style: solid;
+    border-radius:2em;
+
+    margin: 2em 3em 2em 3em;
+    margin-left: auto;
+    margin-right: auto;
+
+    min-width: 20em;
+    max-width: 35em;
+    width: 75%;
+
+    padding: 1.5em;
+
+    background-color: var(--foreground);
+    text-color: var(--text-color);
+
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.survey-title-container h1 {
+    text-align: center;
+    color: var(--text-color);
+}
+
+.survey-title-container {
+    padding: 1px;
+    background-color: var(--button-color);
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 2px 2px;
+    margin-bottom: 1.5em;
+
+}
+
+#survey-title {
+    font-size: 30px;
+}
+
+.question-choice {
+    display: block;
+    width: 100%;
+
+}
+
+hr {
+    margin-right: auto;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+
+    width: 80%;
+    height: 5px;
+    background-color: var(--button-color);
+    border-radius:10px;
+}
+
+.button-bar {
+    position: fixed;
+    bottom: 0.25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 100%;
+    margin: 0;
+
+    display: flex;
+    flex-direction: row;
+    flex-basis: auto;
+    justify-content: space-around;
+    gap: 25%;
+    width: 70%;
+    margin: auto;
+}
+
+.submit-button {
+    background-color: var(--button-color);
+    padding: 0.7em;
+    border-radius: 5px;
+    border-style: none;
+    margin-right: auto;
+    color: white;
+    font-family: Rubik;
+    transition: all .2s ease-in-out;
+    flex-grow: 1;
+
+}
+
+.submit-button:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.add-subtract-container {
+    display: flex;
+    border-style: solid;
+    border-color: black;
+
+}
+
+/*Question Related Formatting*/
+
+.question-container {
+    padding: 0.5em;
+}
+
+.question-container:hover {
+    background-color: #d9dedb;
+    transition: all .4s ease-in-out;
+    opacity: 100%;
+}
+
+.question-container:hover > button{
+    opacity: 100% !important;
+    transition: all .4s ease-in-out;
+}
+
+.question-container > button {
+    float: right;
+}
+
+.question-container:hover i{
+    opacity: 100% !important;
+    transition: all .4s ease-in-out;
+}
+
+.question-choice:hover button {
+    opacity: 100% !important;
+    transition: all .4s ease-in-out;
+}
+
+.question-choice:hover i {
+    opacity: 100% !important;
+    transition: all .4s ease-in-out;
+}
+
+input {
+    width: 70%;
+    margin: 2px;
+    font-family: Rubik;
+}

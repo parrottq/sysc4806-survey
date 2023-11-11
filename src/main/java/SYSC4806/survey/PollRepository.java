@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface PollRepository extends CrudRepository<Poll, UUID> {
+
     @Override
     @NonNull Optional<Poll> findById(@NonNull UUID id);
 

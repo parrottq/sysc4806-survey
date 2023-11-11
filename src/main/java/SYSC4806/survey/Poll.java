@@ -27,7 +27,7 @@ public class Poll implements Serializable {
     }
 
     @Id
-    @UuidGenerator
+    @GeneratedValue(strategy = GenerationType.UUID)
     public UUID getId() {
         return id;
     }
@@ -59,5 +59,15 @@ public class Poll implements Serializable {
 
     public void setClosed(boolean closed) {
         isClosed = closed;
+    }
+
+    public String toString() {
+        String s = "";
+        s += "Survey-Title:" + title;
+        s += "|isClosed:" + isClosed;
+        s += "|id:" + id;
+        s += "|questions:" + questions;
+
+        return s;
     }
 }

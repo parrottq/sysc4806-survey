@@ -2,6 +2,7 @@ package SYSC4806.survey;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import org.hibernate.annotations.UuidGenerator;
 
@@ -22,7 +23,8 @@ public class Answer implements Serializable {
     }
 
     @Id
-    @UuidGenerator
+    @GeneratedValue(strategy = GenerationType.UUID)
+
     public UUID getId() {
         return id;
     }
@@ -37,5 +39,9 @@ public class Answer implements Serializable {
 
     public void setAnswerChoice(String answerChoice) {
         this.answerChoice = answerChoice;
+    }
+
+    public String toString() {
+        return answerChoice;
     }
 }
