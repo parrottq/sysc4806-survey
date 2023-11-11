@@ -2,6 +2,8 @@
 
 SYSC 4806 Fall 2023 Team Project: Mini-SurveyMonkey web app
 
+![Status Badge](https://github.com/parrottq/sysc4806-survey/actions/workflows/main_mini-survey.yml/badge.svg)
+
 Description:
 ____________
 
