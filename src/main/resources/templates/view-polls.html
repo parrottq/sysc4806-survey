@@ -10,7 +10,7 @@
 <body>
     <div name="poll" th:each="poll: ${polls}">
         <hr>
-        <p class="id" th:text="'ID: ' + ${poll.id}" />
+        <p class="poll_id" th:text="'ID: ' + ${poll.id}" />
         <p th:text="'   Name: ' + ${poll.title}"></p>
         <div th:each="question: ${poll.questions}">
             <p th:text="'Question-Title: ' + ${question.title}"/>
