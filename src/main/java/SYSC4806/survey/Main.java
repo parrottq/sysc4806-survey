@@ -27,7 +27,7 @@ public class Main {
         return (args) -> {
             log.info("Boot");
 
-            ArrayList<Answer> al0 = new ArrayList<>();
+            /*ArrayList<Answer> al0 = new ArrayList<>();
 
             Answer a1 = new Answer("Good");
             Answer a2 = new Answer("Bad");
@@ -97,23 +97,7 @@ public class Main {
 
             p = new Poll("Yo", aq);
 
-            pollRepository.save(p);
-
-            // fetch all Polls
-            log.info("AddressBooks found with findAll():");
-            log.info("-------------------------------");
-            for (Poll poll : pollRepository.findAll()) {
-                log.info("Poll id=" + poll.getId());
-                log.info("--------------------------------");
-                for (Question question : poll.getQuestions()) {
-                    log.info(question.toString());
-                    for (Answer answer : question.getAnswers()) {
-                        log.info(answer.toString());
-                    }
-                }
-                log.info("--------------------------------");
-            }
-            log.info("");
+            pollRepository.save(p); */
         };
     }
 }
