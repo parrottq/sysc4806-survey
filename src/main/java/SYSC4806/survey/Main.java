@@ -7,14 +7,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.ArrayList;
+
 @SpringBootApplication
 public class Main {
 
     private static final Logger log = LoggerFactory.getLogger(Main.class);
-
-    public boolean checkIfTrue(boolean bool) {
-        return bool;
-    }
 
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
