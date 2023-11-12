@@ -11,19 +11,19 @@
     <script type="text/javascript" th:src="@{/index.js}"></script>
 </head>
 <body>
-    <div class="title-container">
+    <div class="poll-title-container">
         <h1>List of Polls</h1>
     </div>
-    <div class="view-container">
+    <div class="monkey-container">
         <div th:each="poll: ${polls}">
             <hr>
             <p th:text="'Poll Name: ' + ${poll.getTitle()}"></p>
-            <p th:text="'Status: ' + ${poll.isClosed()}"></p>
-            <button id="poll-button" class="view-poll-button" type="button" onclick="redirectToPoll(${poll.id})"> View Poll</button>
+            <p th:text="'Status: ' + ${poll.status()}"></p>
+            <button class="view-poll-button" th:data-name="${poll.id}" th:onclick="redirectToPoll(this.getAttribute('data-name'))"> View Poll</button>
         </div>
     </div>
     <hr>
-    <button id="return" class="return-button" type="button"> Return to Main Page</button>
+    <button id="return" class="return-button" type="button">Return to Main Page</button>
     <script type="text/javascript">
         document.getElementById("return").onclick = function (){
             location.href = "http://localhost:8080";

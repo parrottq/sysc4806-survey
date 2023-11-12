@@ -69,6 +69,29 @@ function createPoll() {
 }
 
 /**
+ * Saves multiple choice answers in answer repository
+ * @param element
+ */
+function saveAnswers() {
+    $('.multiple-choice').each(function(index, element) {
+        console.log("test")
+        let choiceChecked;
+        if (document.getElementById('choice').checked()){
+            choiceChecked = document.getElementById('choice').val();
+            console.log(choiceChecked);
+        }
+        let answer = {
+            "id" : generateUUID(),
+            // "questionId" : $('choice')
+            "answerChoice" : choiceChecked
+        }
+    });
+    $.ajax({});
+
+}
+
+
+/**
  * Returns a text question element in a question container
  * @returns {string} question container element
  */
@@ -147,10 +170,16 @@ function changeQuestionType(element) {
     }
 }
 
+/**
+ * Redicrects the display page to the desired poll given the ID
+ * @param id
+ */
 function redirectToPoll(id){
-    console.log(id);
-    location.href =  "/current-poll/?id=" + id;
+    // console.log(id);
+    location.href =  "/current-poll/" + id;
 }
+
+
 
 
 
