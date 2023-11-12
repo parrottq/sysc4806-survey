@@ -64,6 +64,42 @@ public class Main {
 
             pollRepository.save(p);
 
+            al0 = new ArrayList<>();
+
+            a1 = new Answer("Good");
+            a2 = new Answer("Bad");
+            a3 = new Answer("Good");
+            a4 = new Answer("Bad");
+            a5 = new Answer("Good");
+            a6 = new Answer("Good");
+            a7 = new Answer("Good");
+            a8 = new Answer("Bad");
+            al1 = new ArrayList<>();
+            al1.add(a1);
+            al1.add(a2);
+
+            al2 = new ArrayList<>();
+            al2.add(a3);
+            al2.add(a4);
+
+            al3 = new ArrayList<>();
+            al3.add(a5);
+            al3.add(a6);
+            al3.add(a7);
+            al3.add(a8);
+
+            q1 = new Question("How are you?", Question.Type.Text, al0, al1);
+            q2 = new Question("What's up?", Question.Type.MultipleChoice, al2, al3);
+
+            aq = new ArrayList<>();
+
+            aq.add(q1);
+            aq.add(q2);
+
+            p = new Poll("Yo", aq);
+
+            pollRepository.save(p);
+
             // fetch all Polls
             log.info("AddressBooks found with findAll():");
             log.info("-------------------------------");
