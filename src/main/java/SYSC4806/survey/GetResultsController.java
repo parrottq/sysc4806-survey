@@ -20,7 +20,12 @@ public class GetResultsController {
      */
     @GetMapping("/view-polls/results")
     public String getResults(@RequestParam String id, Model model) {
-        UUID uuid = UUID.fromString(id);
+        UUID uuid;
+        try {
+            uuid = UUID.fromString(id);
+        } catch (IllegalArgumentException e) {
+            return "view-polls";
+        }
 
         Optional<Poll> poll = pollRepository.findById(uuid);
 
