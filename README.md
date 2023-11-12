@@ -17,7 +17,7 @@ Users can then fill out the survey that is a form generated based on the type of
 
 ## UML Model Diagram
 
-![SYSC4806_SurveyChimp_UML](https://github.com/parrottq/sysc4806-survey/assets/89619482/3af0d8e6-4d94-4fa2-8ae0-608d8d64a540)
+![SYSC4806_SurveyChimp_UML](https://github.com/parrottq/sysc4806-survey/assets/89619482/b7fc60b5-50b5-4435-bcc6-c315e761cdde)
 
 
 ## Credits:
