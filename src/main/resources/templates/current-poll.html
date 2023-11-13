@@ -24,19 +24,12 @@
                     <p><input class="choice" type="radio" id="choice" name="radio-button" th:data-name="${question.id}" th:value="${choice.getAnswerChoice()}" th:text="${choice.getAnswerChoice()}"/></p>
                 </div>
             </div>
-
         </div>
     </div>
     <hr>
     <div class="submit-bar">
         <button id="submit" class="submit-button" type="button" th:onclick="saveAnswers()"> Submit Poll</button>
-        <button id="exit" class="exit-button" type="button"> Exit Poll</button>
-        <script type="text/javascript">
-            document.getElementById("exit").onclick = function (){
-                location.href = "http://localhost:8080/display-polls";
-            }
-        </script>
+        <button id="exit" class="exit-button" type="button" onclick="displayPolls()"> Exit Poll</button>
     </div>
-
 </body>
 </html>

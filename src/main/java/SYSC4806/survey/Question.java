@@ -84,8 +84,10 @@ public class Question implements Serializable {
         String s = "";
         s += "Title:" + title;
         s += "|id:" + id;
-        s += "|choices:" + possibleChoices;
         s += "|question-type" + questionType;
+        if (questionType==Type.MultipleChoice){
+            s += "|choices:" + possibleChoices;
+        }
         s += "|answers" + answers.toString();
 
         return s;

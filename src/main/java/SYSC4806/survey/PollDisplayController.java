@@ -25,7 +25,6 @@ import java.util.stream.StreamSupport;
 public class PollDisplayController {
     private final PollRepository repo;
     private final AnswerRepository answerRepo;
-
     private final QuestionRepository questionRepo;
 
     @Autowired
@@ -51,9 +50,8 @@ public class PollDisplayController {
         return "current-poll";
     }
 
-
     @PostMapping(value = "/save-form")
-    public String saveAnswers(Model model, @RequestBody Poll referencePoll){
+    public String saveAnswers(@RequestBody Poll referencePoll){
         Poll actualPoll;
         if (repo.findById(referencePoll.getId()).isPresent()){
              actualPoll = repo.findById(referencePoll.getId()).get();
@@ -62,9 +60,7 @@ public class PollDisplayController {
                 ArrayList<Answer> referenceAnswers = (ArrayList<Answer>) q.getAnswers();
                 for (Question actualQuestion: actualPoll.getQuestions()){
                     if (referenceId.equals(String.valueOf(actualQuestion.getId()))){
-                        System.out.println("test4");
                         List<Answer> newList = Stream.concat(actualQuestion.getAnswers().stream(), referenceAnswers.stream()).toList();
-                        System.out.println(newList);
                         actualQuestion.setAnswers(newList);
                     }
                 }
@@ -73,12 +69,7 @@ public class PollDisplayController {
         else {
             System.out.println("No ID matches repo");
         }
-
-        ArrayList<Question> qu = (ArrayList<Question>) repo.findById(referencePoll.getId()).get().getQuestions();
-        System.out.println(qu);
-
         return "view-polls";
     }
-
 }
 
