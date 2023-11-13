@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Current Poll</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script type="text/javascript" th:src="@{/index.js}"></script>
 </head>
 <body>
-    <div th:object="${poll}">
+    <div class="poll" th:object="${poll}">
         <hr>
+        <div class="pollID" id="poll-id" th:data-value="${poll.id}"></div>
         <H1 th:text="${poll.title}"></H1>
         <div th:each="question: ${poll.questions}">
             <p th:text="${question.title}"></p>
@@ -19,7 +21,7 @@
             </div>
             <div class="multiple-choice" th:unless="${question.getQuestionType().toString()=='Text'}">
                 <div class="choices" th:each="choice: ${question.possibleChoices}">
-                    <p><input class="choice" type="radio" id="choice" th:data-name="${question.id}" th:value="${choice.getAnswerChoice()}" th:text="${choice.getAnswerChoice()}"/></p>
+                    <p><input class="choice" type="radio" id="choice" name="radio-button" th:data-name="${question.id}" th:value="${choice.getAnswerChoice()}" th:text="${choice.getAnswerChoice()}"/></p>
                 </div>
             </div>
 

@@ -69,24 +69,75 @@ function createPoll() {
 }
 
 /**
- * Saves multiple choice answers in answer repository
- * @param element
+ * Saves multiple choice and text answers in answer repository
+ *
  */
 function saveAnswers() {
+    let questions = [];
+    let answers = [];
+    let answer;
+    let emptyArray = [];
+    let pollID = document.getElementById("poll-id").getAttribute('data-value');
+
     $('.multiple-choice').each(function(index, element) {
-        console.log("test")
-        let choiceChecked;
-        if (document.getElementById('choice').checked()){
-            choiceChecked = document.getElementById('choice').val();
-            console.log(choiceChecked);
-        }
-        let answer = {
+        let question;
+        console.log(pollID)
+        document.querySelectorAll('.multiple-choice .choice').forEach(function(selectedInput) {
+            if (selectedInput.checked) {
+                answer = {
+                    "id" : generateUUID(),
+                    "answerChoice" : selectedInput.value
+                }
+                answers.push(answer)
+                question = {
+                    "id" : selectedInput.getAttribute('data-name'),
+                    "title" : " ",
+                    "questionType" : null,
+                    "possibleChoices" : emptyArray,
+                    "answers" : answers
+                }
+                questions.push(question)
+            }
+        });
+    });
+
+    document.querySelectorAll('.textfield-question input').forEach(function(textAnswer){
+        let question;
+        answer = {
             "id" : generateUUID(),
-            // "questionId" : $('choice')
-            "answerChoice" : choiceChecked
+            "answerChoice" : textAnswer.value
+        }
+        answers.push(answer)
+        question = {
+            "id" : textAnswer.getAttribute('data-name'),
+            "title" : " ",
+            "questionType" : null,
+            "possibleChoices" : emptyArray,
+            "answers" : answers
+        }
+        questions.push(question)
+    });
+
+
+    let poll = {
+        "id" : pollID,
+        "isClosed" : false,
+        "title" : "",
+        "questions" : questions
+    }
+
+    $.ajax({
+        type: 'POST',
+        url: '/save-form',
+        data: JSON.stringify(poll),
+        contentType: "application/json; charset=utf-8",
+        success: function(text) {
+            alert("Poll has been submitted");
+        },
+        error: function() {
+            alert("Error");
         }
     });
-    $.ajax({});
 
 }
 
@@ -178,6 +229,8 @@ function redirectToPoll(id){
     // console.log(id);
     location.href =  "/current-poll/" + id;
 }
+
+
 
 
 

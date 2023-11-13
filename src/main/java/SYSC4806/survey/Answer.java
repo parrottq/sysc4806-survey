@@ -42,6 +42,9 @@ public class Answer implements Serializable {
     }
 
     public String toString() {
-        return answerChoice;
+        String s = "";
+        s += "AnswerChoice:" + answerChoice;
+        s += "|id:" + id;
+        return s;
     }
 }

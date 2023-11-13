@@ -86,6 +86,7 @@ public class Question implements Serializable {
         s += "|id:" + id;
         s += "|choices:" + possibleChoices;
         s += "|question-type" + questionType;
+        s += "|answers" + answers.toString();
 
         return s;
     }
