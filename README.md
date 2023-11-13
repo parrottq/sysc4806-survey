@@ -10,6 +10,8 @@ The goal of this team project is to reproduce a simplified version of the popula
 
 This project will allow users to create polls, answer polls which have been created, and view the results of polls.
 
+The production version of this application can be found at: https://mini-survey.azurewebsites.net/
+
 UML Model Class Diagram:
 ![SYSC4806_SurveyChimp_UML](https://github.com/parrottq/sysc4806-survey/assets/89619482/33f6910e-3b96-495a-9022-3a7aab07c99d)
 
