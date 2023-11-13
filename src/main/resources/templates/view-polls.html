@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Mini-SurveyChimp-Poll-Results</title>
+    <script src="https://kit.fontawesome.com/e46718ba3d.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script type="text/javascript" th:src="@{/index.js}"></script>
 </head>
 <body>
-    <div th:each="poll: ${polls}">
+    <div name="poll" th:each="poll: ${polls}">
         <hr>
-        <p th:text="'ID: ' + ${poll.id}" />
+        <p class="poll_id" th:text="'ID: ' + ${poll.id}" />
         <p th:text="'   Name: ' + ${poll.title}"></p>
         <div th:each="question: ${poll.questions}">
             <p th:text="'Question-Title: ' + ${question.title}"/>
@@ -16,6 +19,15 @@
                 <p th:text="'Choice: ' + ${choice.getAnswerChoice()}"/>
             </div>
         </div>
+        <button type="button" th:onclick="getResults(event)">See Results</button>
     </div>
+    <script>
+            i = 0;
+            elems = document.getElementsByName("poll");
+            for(elem of elems) {
+                elem.setAttribute("id", i);
+                i++;
+            }
+    </script>
 </body>
 </html>

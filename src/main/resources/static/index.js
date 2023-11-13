@@ -81,6 +81,7 @@ function saveAnswers() {
 
     $('.multiple-choice').each(function(index, element) {
         let question;
+        console.log(pollID)
         document.querySelectorAll('.multiple-choice .choice').forEach(function(selectedInput) {
             if (selectedInput.checked) {
                 answer = {
@@ -221,7 +222,7 @@ function changeQuestionType(element) {
 }
 
 /**
- * Redirects the display page to the desired poll given the ID
+ * Redicrects the display page to the desired poll given the ID
  * @param id
  */
 function redirectToPoll(id){
@@ -229,16 +230,9 @@ function redirectToPoll(id){
     location.href =  "/current-poll/" + id;
 }
 
-/**
- * returns current page to the home page
- */
-function returnToHomePage(){
-    location.href = "http://localhost:8080";
-}
-
-/**
- * returns current page to the poll display page
- */
-function displayPolls(){
-    location.href = "http://localhost:8080/display-polls";
+function getResults(clickEvent) {
+    id = clickEvent.target.parentNode.querySelector('.poll_id').innerHTML.split(": ")[1];
+  
+    // Redirect to page
+    window.location.assign('/view-polls/results?id=' + id);
 }
