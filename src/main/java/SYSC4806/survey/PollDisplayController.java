@@ -66,9 +66,11 @@ public class PollDisplayController {
                 }
             }
         }
+        /*
         else {
             System.out.println("No ID matches repo");
         }
+         */
         return "view-polls";
     }
 }
