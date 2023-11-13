@@ -226,8 +226,21 @@ function changeQuestionType(element) {
  * @param id
  */
 function redirectToPoll(id){
-    // console.log(id);
     location.href =  "/current-poll/" + id;
+}
+
+/**
+ * returns current page to the home page
+ */
+function returnToHomePage(){
+    location.href = "http://localhost:8080";
+}
+
+/**
+ * returns current page to the poll display page
+ */
+function displayPolls(){
+    location.href = "http://localhost:8080/display-polls";
 }
 
 function getResults(clickEvent) {
