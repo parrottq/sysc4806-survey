@@ -1,7 +1,4 @@
 
-//TODO
-// 1. Controller Tests
-
 /**
  * Formats the input fields into a format acceptable for a Poll object
  */
@@ -60,7 +57,7 @@ function createPoll() {
         data: JSON.stringify(poll),
         contentType: "application/json; charset=utf-8",
         success: function(text) {
-            alert("Success");
+            window.location.href = "/view-polls";
         },
         error: function() {
             alert("Error");
