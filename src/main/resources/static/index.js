@@ -62,7 +62,7 @@ function createPoll() {
         data: JSON.stringify(poll),
         contentType: "application/json; charset=utf-8",
         success: function(text) {
-            window.location.href = "/view-polls";
+            window.location.replace("/view-polls");
         },
         error: function() {
             alert("Error");
@@ -153,7 +153,7 @@ function generateUUID() {
  * @param element
  */
 function addChoice(element) {
-    $(element).parent().parent().append(buildChoiceElement());
+    $(element).parent().parent().last().append(buildChoiceElement());
 }
 
 /**
@@ -178,7 +178,7 @@ function removeChoice(element) {
  */
 function addQuestion(element) {
 
-    $(".questions-container").append(buildTextQuestion());
+    $(".questions-container").last().append(buildTextQuestion());
 }
 
 /**
