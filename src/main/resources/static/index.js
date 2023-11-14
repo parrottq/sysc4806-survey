@@ -6,6 +6,11 @@ function createPoll() {
     let questions = [];
     let emptyArray = [];
 
+    if(!validateForm()) {
+       alert("Please fill out all fields before submitting");
+       return;
+    }
+
     //Formats each question into a json format
     $('.question-container').each(function(index, element) {
 
@@ -63,6 +68,54 @@ function createPoll() {
             alert("Error");
         }
     });
+}
+
+/**
+ * Ensures that all fields on the survey are not empty
+ */
+function validateForm() {
+    let isValid = true;
+
+    //Check survey title
+    if($('#survey-title').val() === "") {
+        isValid = false;
+        $('#survey-title').css("border-color", "red");
+    }
+
+    //Formats each question into a json format
+    $('.question-container').each(function(index, element) {
+
+        //Checks what kind of question it is (MC, Text, etc)
+        if($(this).find('select').val() === "MultipleChoice") {
+
+            //Format choices into array
+            $('.question-choice').each(function(index, element) {
+                //Check that each choice has a value
+                if($(this).find('input').val() === "") {
+                    $(this).find('input').css("border-color", "red");
+                    isValid = false;
+                }
+            })
+
+            //Check question title field
+            if($(this).find('.question-title-container input').val() === "") {
+                $(this).find('input').css("border-color", "red");
+                isValid = false;
+            }
+
+        } else if ($(this).find('select').val() === "Text") {
+            //Check question title field
+            if($(this).find('.question-title-container input').val() === "") {
+                $(this).find('input').css("border-color", "red");
+                isValid = false;
+            }
+        } else {
+            alert("Unknown element selected")
+            isValid = false;
+        }
+    });
+
+    return isValid;
 }
 
 /**
