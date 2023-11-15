@@ -1,3 +1,23 @@
+//On Page load, grab the html elements and store them for use later
+let textQuestion = "";
+let multipleChoiceQuestion = "";
+let choiceOption = "";
+
+$(document).ready(function() {
+    //Grab elements on page
+    $('.question-container').each(function(index, element) {
+        if($(this).find('select').val() === "MultipleChoice") {
+            multipleChoiceQuestion = this.outerHTML;
+            choiceOption = $(this).find('.question-choice').first()[0].outerHTML;
+        } else if ($(this).find('select').val() === "Text") {
+            textQuestion = this.outerHTML;
+        } else {
+            console.log("Unknown element found");
+        }
+    })
+
+});
+
 /**
  * Formats the input fields into a format acceptable for a Poll object
  */
@@ -117,27 +137,10 @@ function validateForm() {
     return isValid;
 }
 
-/**
- * Returns a text question element in a question container
- * @returns {string} question container element
- */
-function buildTextQuestion() {
-    return "<div class='question-container'><select class='question-type' name='question-type' onchange='changeQuestionType(this)'><option value='Text'>Text</option><option value='MultipleChoice'>Multiple Choice</option></select><button onClick='removeQuestion(this)' style='opacity: 0%'><i style='opacity: 0%' class='fa-solid fa-trash'></i></button><div class='question-title-container'><h2><input type='text' placeholder='Question Title'/></h2></div><div class='question-choice-container'></div><hr></div></div>";
-}
-/**
- * Returns a multiple choice question element in a question container
- * @returns {string} question container element
- */
-function buildChoiceQuestion() {
-    return '<div class="question-container"><select class="question-type" name="question-type" onchange="changeQuestionType(this)"><option value="Text">Text</option><option selected value="MultipleChoice">Multiple Choice</option></select><button onClick="removeQuestion(this)" style="opacity: 0%"><i                             style="opacity:0%" class="fa-solid fa-trash"></i></button><div class="question-title-container"><h2><input class="question-title" type="text" placeholder="Question Title"/></h2></div><div class="question-choice-container"><div class="question-choice"><label><input type="text" placeholder="Choice"/></label><button onClick="removeChoice(this)" style="opacity: 0%"><i                           style="opacity:0%" class="fa-solid fa-trash"></i></button><button onClick="addChoice(this)" style="opacity: 0%"><i                           style="opacity:0%" class="fa-solid fa-plus"></i></button></div><div class="question-choice"><label><input type="text" placeholder="Choice"/></label><button onClick="removeChoice(this)" style="opacity: 0%"><i                           style="opacity:0%" class="fa-solid fa-trash"></i></button><button onClick="addChoice(this)" style="opacity: 0%"><i                           style="opacity:0%" class="fa-solid fa-plus"></i></button></div><div class="question-choice"><label><input type="text" placeholder="Choice"/></label><button onClick="removeChoice(this)" style="opacity: 0%"><i                           style="opacity:0%" class="fa-solid fa-trash"></i></button><button onClick="addChoice(this)" style="opacity: 0%"><i                           style="opacity:0%" class="fa-solid fa-plus"></i></button></div></div><hr></div>';
-}
-/**
- * Returns a multiple choice questions "choice" element
- * @returns {string} question choice container element
- */
-function buildChoiceElement() {
-    return '<div class="question-choice"><label><input type="text" placeholder="Choice"/></label><button onClick="removeChoice(this)" style="opacity: 0%"><i                           style="opacity:0%" class="fa-solid fa-trash"></i></button><button onClick="addChoice(this)" style="opacity: 0%"><i                           style="opacity:0%" class="fa-solid fa-plus"></i></button></div>'
-}
+
+
+//////////
+
 
 /**
  * Generates a UUID in the format the backend expects
@@ -152,7 +155,7 @@ function generateUUID() {
  * @param element
  */
 function addChoice(element) {
-    $(element).parent().parent().last().append(buildChoiceElement());
+    $(element).parent().parent().append(choiceOption);
 }
 
 /**
@@ -177,7 +180,7 @@ function removeChoice(element) {
  */
 function addQuestion(element) {
 
-    $(".questions-container").last().append(buildTextQuestion());
+    $(".questions-container").append(textQuestion);
 }
 
 /**
@@ -190,8 +193,8 @@ function changeQuestionType(element) {
     let choice = $(element).val();
 
     if(choice === "MultipleChoice") {
-        $(element).parent().replaceWith(buildChoiceQuestion());
+        $(element).parent().replaceWith(multipleChoiceQuestion);
     } else {
-        $(element).parent().replaceWith(buildTextQuestion());
+        $(element).parent().replaceWith(textQuestion);
     }
 }
