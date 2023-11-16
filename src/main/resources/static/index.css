@@ -160,4 +160,6 @@ input {
     width: 70%;
     margin: 2px;
     font-family: Rubik;
+    border-style: solid;
+    border-radius: 5px;
 }
