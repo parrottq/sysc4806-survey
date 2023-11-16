@@ -163,6 +163,9 @@ function addChoice(element) {
  * @param element
  */
 function removeQuestion(element) {
+    //Check if this is the last question on the page or not.
+    if($(element).parent().parent().children().length === 1) return;
+
     $(element).parent().remove();
 }
 
@@ -171,6 +174,9 @@ function removeQuestion(element) {
  * @param element
  */
 function removeChoice(element) {
+    //Check if this is the last question on the page or not.
+    if($(element).parent().parent().children().length === 1) return;
+
     $(element).parent().remove();
 }
 
