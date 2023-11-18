@@ -11,7 +11,6 @@ function saveAnswers() {
 
     $('.multiple-choice').each(function(index, element) {
         let question;
-        console.log(pollID)
         document.querySelectorAll('.multiple-choice .choice').forEach(function(selectedInput) {
             if (selectedInput.checked) {
                 answer = {
