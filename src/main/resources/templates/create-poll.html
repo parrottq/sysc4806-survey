@@ -9,6 +9,7 @@
     <script src="https://kit.fontawesome.com/e46718ba3d.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script type="text/javascript" th:src="@{/index.js}"></script>
+    <script type="text/javascript" th:src="@{/create-survey.js}"></script>
 </head>
 <body>
 <div class="button-bar">
@@ -39,8 +40,6 @@
             <hr>
         </div>
 
-
-    </div>
     <div class="question-container">
         <select class="question-type" name="question-type" onchange="changeQuestionType(this)">
             <option value="Text">Text</option>
@@ -68,6 +67,7 @@
             </div>
         </div>
         <hr>
+    </div>
     </div>
 </div>
 <br>
