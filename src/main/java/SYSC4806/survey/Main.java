@@ -7,8 +7,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import java.util.ArrayList;
-
 @SpringBootApplication
 public class Main {
 
@@ -19,9 +17,7 @@ public class Main {
     }
 
     @Bean
-    public CommandLineRunner demo(PollRepository pollRepository) {
-        return (args) -> {
-            log.info("Boot");
-        };
+    public CommandLineRunner demo() {
+        return (args) -> log.info("Boot");
     }
 }
