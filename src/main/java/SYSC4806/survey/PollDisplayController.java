@@ -1,6 +1,5 @@
 package SYSC4806.survey;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,10 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
@@ -60,11 +56,14 @@ public class PollDisplayController {
                 ArrayList<Answer> referenceAnswers = (ArrayList<Answer>) q.getAnswers();
                 for (Question actualQuestion: actualPoll.getQuestions()){
                     if (referenceId.equals(String.valueOf(actualQuestion.getId()))){
-                        List<Answer> newList = Stream.concat(actualQuestion.getAnswers().stream(), referenceAnswers.stream()).toList();
+                        List<Answer> newList = Stream.concat(referenceAnswers.stream(), actualQuestion.getAnswers().stream()).toList();
+                        answerRepo.saveAll(newList);
                         actualQuestion.setAnswers(newList);
                     }
+                    questionRepo.save(actualQuestion);
                 }
             }
+            repo.save(actualPoll);
         }
         /*
         else {
@@ -74,4 +73,3 @@ public class PollDisplayController {
         return "view-polls";
     }
 }
-

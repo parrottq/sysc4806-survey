@@ -21,7 +21,7 @@
             </div>
             <div class="multiple-choice" th:unless="${question.getQuestionType().toString()=='Text'}">
                 <div class="choices" th:each="choice: ${question.possibleChoices}">
-                    <p><input class="choice" type="radio" id="choice" name="radio-button" th:data-name="${question.id}" th:value="${choice.getAnswerChoice()}" th:text="${choice.getAnswerChoice()}"/></p>
+                    <p><input class="choice" type="radio" id="choice"  th:data-name="${question.id}" th:value="${choice.getAnswerChoice()}" th:text="${choice.getAnswerChoice()}"/></p>
                 </div>
             </div>
         </div>
