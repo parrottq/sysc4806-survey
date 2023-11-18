@@ -39,7 +39,7 @@ function createPoll() {
 
             //Format choices into array
             let choices = [];
-            $('.question-choice').each(function(index, element) {
+            $(this).find('.question-choice').each(function(index, element) {
                 choices.push($(this).find('input').val());
             })
 
