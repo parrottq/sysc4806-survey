@@ -108,6 +108,23 @@ hr {
 
 }
 
+.display-button {
+    background-color: var(--button-color);
+    padding: 0.7em;
+    border-radius: 5px;
+    border-style: none;
+    margin-right: auto;
+    color: white;
+    font-family: Rubik;
+    transition: all .2s ease-in-out;
+    flex-grow: 1;
+}
+
+.display-button:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
 .submit-button:hover {
     cursor: pointer;
     transform: scale(1.1);
@@ -162,4 +179,46 @@ input {
     font-family: Rubik;
     border-style: solid;
     border-radius: 5px;
+}
+
+.monkey-container{
+    font-family: Rubik;
+}
+
+.poll-title-container {
+    font-family: Rubik;
+}
+
+.return-button {
+    background-color: var(--button-color);
+    padding: 0.7em;
+    border-radius: 5px;
+    border-style: none;
+    margin-right: auto;
+    color: white;
+    font-family: Rubik;
+    transition: all .2s ease-in-out;
+    flex-grow: 1;
+}
+
+.return-button:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.view-poll-button {
+    background-color: var(--button-color);
+    padding: 0.7em;
+    border-radius: 5px;
+    border-style: none;
+    margin-right: auto;
+    color: white;
+    font-family: Rubik;
+    transition: all .2s ease-in-out;
+    flex-grow: 1;
+}
+
+.view-poll-button:hover {
+    cursor: pointer;
+    transform: scale(1.1);
 }

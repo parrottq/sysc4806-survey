@@ -57,6 +57,15 @@ public class Poll implements Serializable {
         return isClosed;
     }
 
+    public String status(){
+        if (isClosed()){
+            return "Closed";
+        }
+        else {
+            return "Open";
+        }
+    }
+
     public void setClosed(boolean closed) {
         isClosed = closed;
     }

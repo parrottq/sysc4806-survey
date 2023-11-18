@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>List of Polls</title>
+    <link th:href="@{/index.css}" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/e46718ba3d.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script type="text/javascript" th:src="@{/index.js}"></script>
+</head>
+<body>
+    <div class="poll-title-container">
+        <h1>List of Polls</h1>
+    </div>
+    <div class="monkey-container">
+        <div th:each="poll: ${polls}">
+            <hr>
+            <p th:text="'Poll Name: ' + ${poll.getTitle()}"></p>
+            <p th:text="'Status: ' + ${poll.status()}"></p>
+            <button class="view-poll-button" th:data-name="${poll.id}" th:onclick="redirectToPoll(this.getAttribute('data-name'))"> View Poll</button>
+        </div>
+    </div>
+    <hr>
+    <button id="return" class="return-button" type="button" onclick="returnToHomePage()">Return to Main Page</button>
+</body>
+</html>
