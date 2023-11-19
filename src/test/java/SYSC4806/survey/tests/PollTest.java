@@ -1,6 +1,9 @@
 package SYSC4806.survey.tests;
 
-import SYSC4806.survey.*;
+import SYSC4806.survey.model.Answer;
+import SYSC4806.survey.model.Poll;
+import SYSC4806.survey.model.Question;
+import SYSC4806.survey.repository.PollRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

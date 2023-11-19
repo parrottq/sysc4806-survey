@@ -1,5 +1,7 @@
-package SYSC4806.survey;
+package SYSC4806.survey.controller;
 
+import SYSC4806.survey.model.Poll;
+import SYSC4806.survey.repository.PollRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
