@@ -26,6 +26,7 @@ function saveAnswers() {
                     "answers" : answers
                 }
                 questions.push(question)
+                answers = []
             }
         });
     });
@@ -45,6 +46,7 @@ function saveAnswers() {
             "answers" : answers
         }
         questions.push(question)
+        answers = []
     });
 
 
