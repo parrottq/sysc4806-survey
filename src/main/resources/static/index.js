@@ -4,49 +4,45 @@
  */
 function saveAnswers() {
     let questions = [];
-    let answers = [];
-    let answer;
-    let emptyArray = [];
     let pollID = document.getElementById("poll-id").getAttribute('data-value');
 
-    $('.multiple-choice').each(function(index, element) {
+    $('.multiple-choice').each(function() {
+        let answers = [];
         let question;
         document.querySelectorAll('.multiple-choice .choice').forEach(function(selectedInput) {
             if (selectedInput.checked) {
-                answer = {
+                let answer = {
                     "id" : generateUUID(),
                     "answerChoice" : selectedInput.value
                 }
                 answers.push(answer)
+                
                 question = {
                     "id" : selectedInput.getAttribute('data-name'),
                     "title" : " ",
                     "questionType" : null,
-                    "possibleChoices" : emptyArray,
+                    "possibleChoices" : [],
                     "answers" : answers
                 }
                 questions.push(question)
-                answers = []
             }
         });
     });
 
     document.querySelectorAll('.textfield-question input').forEach(function(textAnswer){
         let question;
-        answer = {
+        let answer = {
             "id" : generateUUID(),
             "answerChoice" : textAnswer.value
         }
-        answers.push(answer)
         question = {
             "id" : textAnswer.getAttribute('data-name'),
             "title" : " ",
             "questionType" : null,
-            "possibleChoices" : emptyArray,
-            "answers" : answers
+            "possibleChoices" : [],
+            "answers" : [ answer ]
         }
         questions.push(question)
-        answers = []
     });
 
 
