@@ -79,17 +79,25 @@ function redirectToPoll(id){
 }
 
 /**
+ * Redicrects the display page to the desired poll given the ID
+ * @param id
+ */
+function redirectToPollResults(id){
+    window.location.assign("/current-poll/results?id=" + id);
+}
+
+/**
  * returns current page to the home page
  */
 function returnToHomePage(){
-    location.href = "http://localhost:8080";
+    window.location.assign("/");
 }
 
 /**
  * returns current page to the poll display page
  */
 function displayPolls(){
-    location.href = "http://localhost:8080/display-polls";
+    window.location.assign("/display-polls");
 }
 
 function getResults(clickEvent) {

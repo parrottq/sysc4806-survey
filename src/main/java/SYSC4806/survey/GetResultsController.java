@@ -18,7 +18,7 @@ public class GetResultsController {
     /**
      * View results of a poll
      */
-    @GetMapping("/view-polls/results")
+    @GetMapping("/current-poll/results")
     public String getResults(@RequestParam String id, Model model) {
         UUID uuid;
         try {

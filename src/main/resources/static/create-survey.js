@@ -81,7 +81,7 @@ function createPoll() {
         data: JSON.stringify(poll),
         contentType: "application/json; charset=utf-8",
         success: function(text) {
-            window.location.replace("/view-polls");
+            window.location.replace("/display-polls");
         },
         error: function() {
             alert("Error");
