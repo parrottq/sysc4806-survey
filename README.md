@@ -12,8 +12,7 @@ This project will allow users to create polls, answer polls which have been crea
 
 The production version of this application can be found at: https://mini-survey.azurewebsites.net/
 
-UML Model Class Diagram:
-![SYSC4806_SurveyChimp_UML](https://github.com/parrottq/sysc4806-survey/assets/89619482/33f6910e-3b96-495a-9022-3a7aab07c99d)
+![SYSC4806_SurveyChimp_UML](https://github.com/parrottq/sysc4806-survey/assets/89619482/facd81bf-d073-47c7-8c35-e534d9fa8c69)
 
 
 ## Tools
