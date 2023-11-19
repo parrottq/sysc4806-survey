@@ -3,9 +3,9 @@ package SYSC4806.survey.tests;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import SYSC4806.survey.Answer;
-import SYSC4806.survey.Question;
-import SYSC4806.survey.QuestionRepository;
+import SYSC4806.survey.model.Answer;
+import SYSC4806.survey.model.Question;
+import SYSC4806.survey.repository.QuestionRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

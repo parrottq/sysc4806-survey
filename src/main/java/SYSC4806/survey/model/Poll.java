@@ -1,7 +1,6 @@
-package SYSC4806.survey;
+package SYSC4806.survey.model;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.UuidGenerator;
 
 import java.io.Serializable;
 import java.util.ArrayList;

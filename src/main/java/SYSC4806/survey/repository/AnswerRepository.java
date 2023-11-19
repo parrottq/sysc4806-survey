@@ -1,5 +1,6 @@
-package SYSC4806.survey;
+package SYSC4806.survey.repository;
 
+import SYSC4806.survey.model.Answer;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.lang.NonNull;
 

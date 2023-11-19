@@ -1,6 +1,9 @@
 package SYSC4806.survey.tests;
 
-import SYSC4806.survey.*;
+import SYSC4806.survey.model.Answer;
+import SYSC4806.survey.model.Poll;
+import SYSC4806.survey.model.Question;
+import SYSC4806.survey.repository.PollRepository;
 import jakarta.annotation.Resource;
 import org.junit.Test;
 import org.junit.runner.RunWith;
