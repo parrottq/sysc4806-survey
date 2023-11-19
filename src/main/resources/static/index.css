@@ -222,3 +222,20 @@ input {
     cursor: pointer;
     transform: scale(1.1);
 }
+
+.view-results-button {
+    background-color: var(--button-color);
+    padding: 0.7em;
+    border-radius: 5px;
+    border-style: none;
+    margin-right: auto;
+    color: white;
+    font-family: Rubik;
+    transition: all .2s ease-in-out;
+    flex-grow: 1;
+}
+
+.view-results-button:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}

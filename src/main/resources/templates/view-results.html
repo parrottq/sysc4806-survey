@@ -5,23 +5,25 @@
     <title>Poll Results</title>
 </head>
 <body>
-    <div class="poll-results-container">
-        <p th:text="'Poll Title: ' + ${poll.title}"></p>
-        <p th:text="'ID: ' + ${poll.id}"></p>
-        <div th:each="question: ${poll.questions}">
-            <hr>
-            <p th:text="'ID: ' + ${question.id}"></p>
-            <p th:text="'   Question: ' + ${question.title}"></p>
-            <div th:switch="${question.questionType}">
-                <p th:case="'MultipleChoice'">
-                    <div th:each="choice: ${question.possibleChoices}">
-                        <p th:text="'Choice: ' + ${choice.getAnswerChoice()}"></p>
-                    </div>
-                </p>
-            </div>
-            <p>Answers:</p>
-            <div th:each="answer: ${question.answers}">
-                <p th:text="${answer.getAnswerChoice()}"></p>
+    <div class="monkey-container">
+        <div class="poll-results-container">
+            <p th:text="'Poll Title: ' + ${poll.title}"></p>
+            <p th:text="'ID: ' + ${poll.id}"></p>
+            <div th:each="question: ${poll.questions}">
+                <hr>
+                <p th:text="'ID: ' + ${question.id}"></p>
+                <p th:text="'   Question: ' + ${question.title}"></p>
+                <div th:switch="${question.questionType}">
+                    <p th:case="'MultipleChoice'">
+                        <div th:each="choice: ${question.possibleChoices}">
+                            <p th:text="'Choice: ' + ${choice.getAnswerChoice()}"></p>
+                        </div>
+                    </p>
+                </div>
+                <p>Answers:</p>
+                <div th:each="answer: ${question.answers}">
+                    <p th:text="${answer.getAnswerChoice()}"></p>
+                </div>
             </div>
         </div>
     </div>
