@@ -6,6 +6,8 @@ import SYSC4806.survey.model.Question;
 import SYSC4806.survey.repository.AnswerRepository;
 import SYSC4806.survey.repository.PollRepository;
 import SYSC4806.survey.repository.QuestionRepository;
+import SYSC4806.survey.websocket.PollResultsHandler;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,12 +30,14 @@ public class PollDisplayController {
     private final PollRepository repo;
     private final AnswerRepository answerRepo;
     private final QuestionRepository questionRepo;
+    private final PollResultsHandler pollResultsHandler;
 
     @Autowired
-    public PollDisplayController(PollRepository repo, AnswerRepository answerRepo, QuestionRepository questionRepo){
+    public PollDisplayController(PollRepository repo, AnswerRepository answerRepo, QuestionRepository questionRepo, PollResultsHandler pollResultsHandler){
         this.repo = repo;
         this.answerRepo = answerRepo;
         this.questionRepo = questionRepo;
+        this.pollResultsHandler = pollResultsHandler;
     }
 
     @GetMapping(value = "/display-polls")
@@ -56,7 +60,7 @@ public class PollDisplayController {
     public String saveAnswers(@RequestBody Poll referencePoll){
         Poll actualPoll;
         if (repo.findById(referencePoll.getId()).isPresent()){
-             actualPoll = repo.findById(referencePoll.getId()).get();
+            actualPoll = repo.findById(referencePoll.getId()).get();
             for(Question q: referencePoll.getQuestions()) {
                 String referenceId = String.valueOf(q.getId());
                 ArrayList<Answer> referenceAnswers = (ArrayList<Answer>) q.getAnswers();
@@ -70,12 +74,10 @@ public class PollDisplayController {
                 }
             }
             repo.save(actualPoll);
+            try {
+                pollResultsHandler.pushPollUpdate(actualPoll.getId());
+            } catch (JsonProcessingException ignored) {}
         }
-        /*
-        else {
-            System.out.println("No ID matches repo");
-        }
-         */
         return "view-polls";
     }
 }

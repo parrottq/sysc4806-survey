@@ -37,7 +37,6 @@ public class PollResultsHandler extends TextWebSocketHandler {
         log.info("Client {} ({}) sent {} for {}", session.getId(), session.getRemoteAddress(), request.type, request.pollId);
 
         if (request.type.equals(PollResultsRequestType.Subscribe)) {
-
             // Check that the poll exists before adding to the subscriber list
             var pollOpt = this.pollRepository.findById(request.pollId);
 
@@ -68,6 +67,7 @@ public class PollResultsHandler extends TextWebSocketHandler {
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus closeStatus) throws Exception {
+        log.warn("Object: {}", objectMapper.writeValueAsString(new PollResultsRequest()));
         log.info("Client {} ({}) closed connection with {}", session.getId(), session.getRemoteAddress(), closeStatus);
         this.removeSessionFromConnections(session);
     }
@@ -90,6 +90,7 @@ public class PollResultsHandler extends TextWebSocketHandler {
     }
 
     public Optional<Poll> pushPollUpdate(UUID pollId) throws JsonProcessingException {
+        log.info("Pushing Poll Updates to poll: {}", pollId);
         var pollOpt = this.pollRepository.findById(pollId);
 
         var subscribedSessions = this.connections.getOrDefault(pollId, Set.of());

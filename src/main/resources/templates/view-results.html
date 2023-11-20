@@ -10,24 +10,35 @@
     <div class="monkey-container">
         <div class="poll-results-container">
             <p th:text="'Poll Title: ' + ${poll.title}"></p>
-            <p th:text="'ID: ' + ${poll.id}"></p>
+            <p id="poll_id" th:text="'ID: ' + ${poll.id}"></p>
+            <button type="button" onclick="displayPolls()">
+                Return To Polls
+            </button>
             <div th:each="question: ${poll.questions}">
-                <hr>
-                <p th:text="'ID: ' + ${question.id}"></p>
-                <p th:text="'   Question: ' + ${question.title}"></p>
-                <div th:switch="${question.questionType}">
-                    <p th:case="'MultipleChoice'">
-                        <div th:each="choice: ${question.possibleChoices}">
-                            <p th:text="'Choice: ' + ${choice.getAnswerChoice()}"></p>
+                <div id="question">
+                    <hr>
+                    <p th:text="'ID: ' + ${question.id}"></p>
+                    <p th:text="'   Question: ' + ${question.title}"></p>
+                    <div th:switch="${question.questionType}">
+                        <p th:case="'MultipleChoice'">
+                            <div th:each="choice: ${question.possibleChoices}">
+                                <p th:text="'Choice: ' + ${choice.getAnswerChoice()}"></p>
+                            </div>
+                        </p>
+                    </div>
+                    <p>Answers:</p>
+                    <div id="answers">
+                        <div th:each="answer: ${question.answers}">
+                            <p th:text="${answer.getAnswerChoice()}"></p>
                         </div>
-                    </p>
-                </div>
-                <p>Answers:</p>
-                <div th:each="answer: ${question.answers}">
-                    <p th:text="${answer.getAnswerChoice()}"></p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        let elem = document.getElementById("poll_id")
+        subscribe(elem.innerHTML.split(": ")[1])
+    </script>
 </body>
 </html>

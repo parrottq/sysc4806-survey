@@ -1,11 +1,25 @@
-let socket = new WebSocket("/poll/results-stream");
+function subscribe(pollId) {
+    let socket = new WebSocket("ws:" + window.location.host + "/poll/results-stream");
 
+    socket.onopen = function(e) {
+        socket.send(JSON.stringify({"type":"Subscribe","pollId":pollId}))
+        console.log("[open] Connection Established")
+    }
 
-socket.onopen = function(e) {
-    console.log("[open] Connection Established")
-    socket.send("Subscribe")
-}
-
-socket.onmessage = function(event) {
-    console.log(`Message Received: ${event.data}`);
+    socket.onmessage = function(event) {
+        console.log(`Message Received: ${event.data}`);
+        let questions = JSON.parse(event.data)["questions"];
+        let docQuestions = Array.from(document.querySelectorAll('[id=question]'));
+        for(let i = 0; i < docQuestions.length; i++) {
+            let answer = Array.from(docQuestions[i].querySelectorAll("[id=answers]"));
+            answer[0].replaceChildren([]);
+            let elem = document.createElement("div");
+            for(let w = 0; w < questions[i].answers.length; w++) {
+                let child = document.createElement("p");
+                child.innerHTML = questions[i].answers[w].answerChoice;
+                elem.appendChild(child);
+            }
+            answer[0].appendChild(elem);
+        }
+    }
 }
