@@ -16,7 +16,8 @@ function subscribe(pollId) {
             let elem = document.createElement("div");
             for(let w = 0; w < questions[i].answers.length; w++) {
                 let child = document.createElement("p");
-                child.innerHTML = questions[i].answers[w].answerChoice;
+                console.log($(questions[i].answers[w].answerChoice))
+                $(child).text(questions[i].answers[w].answerChoice).val();
                 elem.appendChild(child);
             }
             answer[0].appendChild(elem);
