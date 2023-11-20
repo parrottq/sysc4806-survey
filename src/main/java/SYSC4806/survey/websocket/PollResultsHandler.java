@@ -67,7 +67,6 @@ public class PollResultsHandler extends TextWebSocketHandler {
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus closeStatus) throws Exception {
-        log.warn("Object: {}", objectMapper.writeValueAsString(new PollResultsRequest()));
         log.info("Client {} ({}) closed connection with {}", session.getId(), session.getRemoteAddress(), closeStatus);
         this.removeSessionFromConnections(session);
     }
