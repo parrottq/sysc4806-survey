@@ -9,14 +9,18 @@ function subscribe(pollId) {
     socket.onmessage = function(event) {
         console.log(`Message Received: ${event.data}`);
         let questions = JSON.parse(event.data)["questions"];
-        let docQuestions = Array.from(document.querySelectorAll('[id=question]'));
+        let docQuestions;
+        try {
+            docQuestions = Array.from(document.querySelectorAll('[id=question]'));
+        } catch(err) {
+            docQuestions = []
+        }
         for(let i = 0; i < docQuestions.length; i++) {
             let answer = Array.from(docQuestions[i].querySelectorAll("[id=answers]"));
             answer[0].replaceChildren([]);
             let elem = document.createElement("div");
             for(let w = 0; w < questions[i].answers.length; w++) {
                 let child = document.createElement("p");
-                console.log($(questions[i].answers[w].answerChoice))
                 $(child).text(questions[i].answers[w].answerChoice).val();
                 elem.appendChild(child);
             }
