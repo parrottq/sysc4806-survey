@@ -63,7 +63,6 @@ html {
 .question-choice {
     display: block;
     width: 100%;
-
 }
 
 hr {
@@ -310,3 +309,9 @@ input {
     overflow: hidden;
     background-color: #f1f1f1;
   } 
+
+  .choice {
+    margin-left: 10%;
+    height: 1rem;
+    width: 1rem;
+  }
