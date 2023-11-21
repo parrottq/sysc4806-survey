@@ -141,15 +141,6 @@ function validateForm() {
 
 //////////
 
-
-/**
- * Generates a UUID in the format the backend expects
- * @returns {`${string}-${string}-${string}-${string}-${string}`}
- */
-function generateUUID() {
-    return this.crypto.randomUUID();
-}
-
 /**
  * Adds a choice element to the button it was called from
  * @param element
