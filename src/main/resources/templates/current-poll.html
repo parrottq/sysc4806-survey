@@ -3,37 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <title>Current Poll</title>
-    <link th:href="@{/index.css}" rel="stylesheet" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script type="text/javascript" th:src="@{/util.js}"></script>
     <script type="text/javascript" th:src="@{/index.js}"></script>
 </head>
 <body>
-    <div class="survey-container">
-        <div class="poll" th:object="${poll}">
-            <div class="pollID" id="poll-id" th:data-value="${poll.id}"></div>
-            <h1 class="survey-title-container"><p class="center-text" th:text="${poll.title}"></p></h1>
-            <div th:each="question: ${poll.questions}">
-                <p class="center-text" th:text="${question.title}"></p>
-                <div class="textfield-question" th:if="${question.getQuestionType().toString()=='Text'}">
-                    <p class="center-text">
-                        <input class="text-answer" type="text" id="text-question" th:data-name="${question.id}"/>
-                    </p>
-                </div>
-                <div class="multiple-choice" th:unless="${question.getQuestionType().toString()=='Text'}">
-                    <div class="choices" th:each="choice: ${question.possibleChoices}">
-                        <p><input class="choice" th:name="${question.id}" type="radio" id="choice" th:data-name="${question.id}" th:value="${choice.getAnswerChoice()}" th:text="${choice.getAnswerChoice()}"/></p>
-                    </div>
+    <div class="poll" th:object="${poll}">
+        <hr>
+        <div class="pollID" id="poll-id" th:data-value="${poll.id}"></div>
+        <H1 th:text="${poll.title}"></H1>
+        <div th:each="question: ${poll.questions}">
+            <p th:text="${question.title}"></p>
+            <div class="textfield-question" th:if="${question.getQuestionType().toString()=='Text'}">
+                <p>
+                    <label for="text-question">Answer: </label>
+                    <input type="text" id="text-question" th:data-name="${question.id}"/>
+                </p>
+            </div>
+            <div class="multiple-choice" th:unless="${question.getQuestionType().toString()=='Text'}">
+                <div class="choices" th:each="choice: ${question.possibleChoices}">
+                    <p><input class="choice" type="radio" id="choice"  th:data-name="${question.id}" th:value="${choice.getAnswerChoice()}" th:text="${choice.getAnswerChoice()}"/></p>
                 </div>
             </div>
         </div>
-        <br>
-        <div class="center-text">
-            <div class="submit-bar">
-                <button id="submit" class="submit-button" type="button" th:onclick="saveAnswers()"> Submit Poll</button>
-                <button id="exit" class="exit-button" type="button" onclick="displayPolls()"> Exit Poll</button>
-            </div>
-        </div>
+    </div>
+    <hr>
+    <div class="submit-bar">
+        <button id="submit" class="submit-button" type="button" th:onclick="saveAnswers()"> Submit Poll</button>
+        <button id="exit" class="exit-button" type="button" onclick="displayPolls()"> Exit Poll</button>
     </div>
 </body>
 </html>
