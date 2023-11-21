@@ -287,3 +287,26 @@ input {
     padding: 5px;
     text-align: center;
 }
+
+ /* Style the button that is used to open and close the collapsible content */
+ .collapsible {
+    background-color: var(--button-color);
+    cursor: pointer;
+    padding: 0.7em;
+    width: 23%;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    border-style: none;
+    margin-right: auto;
+    text-align: center;
+    color: white;
+  }
+  
+  /* Style the collapsible content. Note: hidden by default */
+  .collapse {
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    background-color: #f1f1f1;
+  } 

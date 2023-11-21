@@ -3,19 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Poll Results</title>
+    <link th:href="@{/index.css}" rel="stylesheet" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script type="text/javascript" th:src="@{/index.js}"></script>
     <script type="text/javascript" th:src="@{/socket.js}"></script>
 </head>
 <body>
-    <div class="monkey-container">
+    <div class="survey-container">
         <div class="poll-results-container">
-            <p th:text="'Poll Title: ' + ${poll.title}"></p>
-            <p id="poll_id" th:text="'ID: ' + ${poll.id}"></p>
-            <button type="button" onclick="displayPolls()">
-                Return To Polls
-            </button>
-            <div th:each="question: ${poll.questions}">
+            <div class="center-text">
+                <p th:text="'Poll Title: ' + ${poll.title}"></p>
+                <p id="poll_id" th:text="'ID: ' + ${poll.id}"></p>
+                <button class="view-results-button" type="button" onclick="displayPolls()">
+                    Return To Polls
+                </button>
+            </div>
+            <div class="center-text" th:each="question: ${poll.questions}">
                 <div id="question">
                     <hr>
                     <p th:text="'ID: ' + ${question.id}"></p>
@@ -28,7 +31,8 @@
                         </p>
                     </div>
                     <p>Answers:</p>
-                    <div id="answers">
+                    <button type="open-button" class="collapsible">Open Collapsible</button>
+                    <div class="collapse" id="answers">
                         <div th:each="answer: ${question.answers}">
                             <p th:text="${answer.getAnswerChoice()}"></p>
                         </div>
@@ -38,6 +42,23 @@
         </div>
     </div>
     <script>
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+
+        for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.display === "block") {
+                this.innerHTML = "Open Collapsable"
+                content.style.display = "none";
+            } else {
+                this.innerHTML = "Close Collapsable"
+                content.style.display = "block";
+            }
+        });
+        } 
+
         let elem = document.getElementById("poll_id");
         const regex = /[a-z,0-9]{8}-[a-z,0-9]{4}-4[a-z,0-9]{3}-[89AB][a-z,0-9]{3}-[a-z,0-9]{12}$/;
         subscribe(elem.innerHTML.match(regex)[0]);
