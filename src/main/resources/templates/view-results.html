@@ -31,7 +31,7 @@
                         </p>
                     </div>
                     <p>Answers:</p>
-                    <button type="open-button" class="collapsible">Open Collapsible</button>
+<!--                    <button type="open-button" class="collapsible">Open Collapsible</button>-->
                     <div id="answers">
                         <div th:each="answer: ${question.answers}">
                             <p th:text="${answer.getAnswerChoice()}"></p>
@@ -42,22 +42,22 @@
         </div>
     </div>
     <script>
-        var coll = document.getElementsByClassName("collapsible");
-        var i;
-
-        for (i = 0; i < coll.length; i++) {
-        coll[i].addEventListener("click", function() {
-            this.classList.toggle("active");
-            var content = this.nextElementSibling;
-            if (content.style.display === "block") {
-                this.innerHTML = "Open Collapsable"
-                content.style.display = "none";
-            } else {
-                this.innerHTML = "Close Collapsable"
-                content.style.display = "block";
-            }
-        });
-        } 
+        // var coll = document.getElementsByClassName("collapsible");
+        // var i;
+        //
+        // for (i = 0; i < coll.length; i++) {
+        // coll[i].addEventListener("click", function() {
+        //     this.classList.toggle("active");
+        //     var content = this.nextElementSibling;
+        //     if (content.style.display === "block") {
+        //         this.innerHTML = "Open Collapsable"
+        //         content.style.display = "none";
+        //     } else {
+        //         this.innerHTML = "Close Collapsable"
+        //         content.style.display = "block";
+        //     }
+        // });
+        // }
 
         let elem = document.getElementById("poll_id");
         const regex = /[a-z,0-9]{8}-[a-z,0-9]{4}-4[a-z,0-9]{3}-[89AB][a-z,0-9]{3}-[a-z,0-9]{12}$/;
