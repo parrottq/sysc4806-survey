@@ -32,7 +32,7 @@
                     </div>
                     <p>Answers:</p>
                     <button type="open-button" class="collapsible">Open Collapsible</button>
-                    <div class="collapse" id="answers">
+                    <div id="answers">
                         <div th:each="answer: ${question.answers}">
                             <p th:text="${answer.getAnswerChoice()}"></p>
                         </div>

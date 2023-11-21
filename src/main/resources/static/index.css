@@ -301,14 +301,6 @@ input {
     text-align: center;
     color: white;
   }
-  
-  /* Style the collapsible content. Note: hidden by default */
-  .collapse {
-    padding: 0 18px;
-    display: none;
-    overflow: hidden;
-    background-color: #f1f1f1;
-  } 
 
   .choice {
     margin-left: 10%;
