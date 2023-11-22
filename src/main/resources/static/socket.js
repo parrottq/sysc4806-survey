@@ -1,5 +1,5 @@
 function subscribe(pollId) {
-    let socket = new WebSocket("wss:" + window.location.host + "/poll/results-stream");
+    let socket = new WebSocket("ws:" + window.location.host + "/poll/results-stream");
 
     socket.onopen = function(e) {
         socket.send(JSON.stringify({"type":"Subscribe","pollId":pollId}))
