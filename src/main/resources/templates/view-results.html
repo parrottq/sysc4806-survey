@@ -60,8 +60,8 @@
         // }
 
         let elem = document.getElementById("poll_id");
-        const regex = /[a-z,0-9]{8}-[a-z,0-9]{4}-4[a-z,0-9]{3}-[89AB][a-z,0-9]{3}-[a-z,0-9]{12}$/;
-        subscribe(elem.innerHTML.match(regex)[0]);
+        // const regex = /[a-z,0-9]{8}-[a-z,0-9]{4}-4[a-z,0-9]{3}-[89AB][a-z,0-9]{3}-[a-z,0-9]{12}$/;
+        subscribe(elem.innerHTML.split(": ")[0]);
     </script>
 </body>
 </html>
