@@ -77,6 +77,13 @@ function redirectToPoll(id){
 }
 
 /**
+ * alerts the user that the poll they are trying to access is currently closed
+ */
+function notifyUserOfClosedStatus(){
+    alert("This poll is closed.")
+}
+
+/**
  * Redicrects the display page to the desired poll given the ID
  * @param id
  */

@@ -73,6 +73,7 @@ public class PollDisplayController {
                     questionRepo.save(actualQuestion);
                 }
             }
+            actualPoll.setClosed(true);
             repo.save(actualPoll);
             try {
                 pollResultsHandler.pushPollUpdate(actualPoll.getId());
