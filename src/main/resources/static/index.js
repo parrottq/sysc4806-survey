@@ -79,7 +79,6 @@ function closePoll(){
     let poll = {
         "id" : pollID,
         "isClosed" : true,
-        "isSubmitted" : true,
         "title" : "",
         "questions" : []
     }
@@ -87,8 +86,9 @@ function closePoll(){
         type: 'POST',
         url: '/close-poll',
         data: JSON.stringify(poll),
-        contentType: "application/json; charset=utf-8",
+        contentType: "application/json; charset=utf-8"
     });
+
 }
 
 /**

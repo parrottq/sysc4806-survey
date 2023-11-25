@@ -70,7 +70,6 @@ function createPoll() {
     let poll = {
         "id" : generateUUID(),
         "isClosed" : false,
-        "isSubmitted" : false,
         "title" : $('#survey-title').val(),
         "questions" : questions
     }
