@@ -49,7 +49,6 @@ function saveAnswers() {
     let poll = {
         "id" : pollID,
         "isClosed" : false,
-        "isSubmitted" : false,
         "title" : "",
         "questions" : questions
     }
@@ -60,7 +59,7 @@ function saveAnswers() {
         data: JSON.stringify(poll),
         contentType: "application/json; charset=utf-8",
     });
-
+    displayPolls();
 }
 
 /**
@@ -76,19 +75,12 @@ function redirectToPoll(id){
  */
 function closePoll(){
     let pollID = document.getElementById("view").getAttribute('data-name');
-    let poll = {
-        "id" : pollID,
-        "isClosed" : true,
-        "title" : "",
-        "questions" : []
-    }
     $.ajax({
         type: 'POST',
         url: '/close-poll',
-        data: JSON.stringify(poll),
+        data: JSON.stringify(pollID),
         contentType: "application/json; charset=utf-8"
     });
-
 }
 
 /**

@@ -57,9 +57,10 @@ public class PollDisplayController {
     }
 
     @PostMapping(value = "/close-poll")
-    public Poll closePoll(@RequestBody Poll referencePoll){
-        if (repo.findById(referencePoll.getId()).isPresent()) {
-            Poll poll = repo.findById(referencePoll.getId()).get();
+    public Poll closePoll(@RequestBody UUID id){
+        var pollOpt = repo.findById(id);
+        if (pollOpt.isPresent()) {
+            Poll poll = pollOpt.get();
             poll.setClosed(true);
             return repo.save(poll);
         }
