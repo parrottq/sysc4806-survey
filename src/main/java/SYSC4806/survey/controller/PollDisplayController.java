@@ -56,6 +56,16 @@ public class PollDisplayController {
         return "current-poll";
     }
 
+    @PostMapping(value = "/close-poll")
+    public String closePoll(@RequestBody Poll referencePoll){
+        if (repo.findById(referencePoll.getId()).isPresent()) {
+            Poll poll = repo.findById(referencePoll.getId()).get();
+            poll.setClosed(true);
+            repo.save(poll);
+        }
+        return "display-polls";
+    }
+
     @PostMapping(value = "/save-form")
     public String saveAnswers(@RequestBody Poll referencePoll){
         Poll actualPoll;
@@ -73,7 +83,7 @@ public class PollDisplayController {
                     questionRepo.save(actualQuestion);
                 }
             }
-            actualPoll.setClosed(true);
+            actualPoll.setSubmitted(true);
             repo.save(actualPoll);
             try {
                 pollResultsHandler.pushPollUpdate(actualPoll.getId());

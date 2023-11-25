@@ -14,6 +14,7 @@ public class Poll implements Serializable {
     private String title;
     private ArrayList<Question> questions;
     private boolean isClosed;
+    private boolean isSubmitted;
 
     public Poll() {
         this("", new ArrayList<>());
@@ -23,6 +24,7 @@ public class Poll implements Serializable {
         this.title = title;
         this.questions = questions;
         this.isClosed = false;
+        this.isSubmitted = false;
     }
 
     @Id
@@ -54,6 +56,14 @@ public class Poll implements Serializable {
 
     public boolean isClosed() {
         return isClosed;
+    }
+
+    public boolean isSubmitted() {
+        return isSubmitted;
+    }
+
+    public void setSubmitted(boolean submitted) {
+        isSubmitted = submitted;
     }
 
     public String status(){

@@ -49,6 +49,7 @@ function saveAnswers() {
     let poll = {
         "id" : pollID,
         "isClosed" : false,
+        "isSubmitted" : false,
         "title" : "",
         "questions" : questions
     }
@@ -58,18 +59,12 @@ function saveAnswers() {
         url: '/save-form',
         data: JSON.stringify(poll),
         contentType: "application/json; charset=utf-8",
-        success: function(text) {
-            alert("Poll has been submitted");
-        },
-        error: function() {
-            alert("Error");
-        }
     });
 
 }
 
 /**
- * Redicrects the display page to the desired poll given the ID
+ * Redirects the display page to the desired poll given the ID
  * @param id
  */
 function redirectToPoll(id){
@@ -77,14 +72,27 @@ function redirectToPoll(id){
 }
 
 /**
- * alerts the user that the poll they are trying to access is currently closed
+ * closes the current poll, and alerts the backend to change status of poll
  */
-function notifyUserOfClosedStatus(){
-    alert("This poll is closed.")
+function closePoll(){
+    let pollID = document.getElementById("view").getAttribute('data-name');
+    let poll = {
+        "id" : pollID,
+        "isClosed" : true,
+        "isSubmitted" : true,
+        "title" : "",
+        "questions" : []
+    }
+    $.ajax({
+        type: 'POST',
+        url: '/close-poll',
+        data: JSON.stringify(poll),
+        contentType: "application/json; charset=utf-8",
+    });
 }
 
 /**
- * Redicrects the display page to the desired poll given the ID
+ * Redirects the display page to the desired poll given the ID
  * @param id
  */
 function redirectToPollResults(id){
