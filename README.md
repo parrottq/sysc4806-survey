@@ -23,13 +23,12 @@ Communications between the frontend and backend are currently performed using aj
 
 ## Database
 
-The database is tracked at jdbc:h2:mem:surveydb
-
-The DB Schema can be viewed by going to localhost:8080/hs-console. The login information for the page this link brings you to is admin/admin (username/password)
+The database for this application consists of three main entities: Answer, Question, and Poll.
+The ER diagram below provides a visual representation of the relationships between these entities.
 
 Schema:
-![SYSC4806_SurveyChimp_Schema](https://github.com/parrottq/sysc4806-survey/assets/89619482/cbb580da-0366-447e-9e8e-5d9371019f56)
 
+![survey](https://github.com/parrottq/sysc4806-survey/assets/61538331/064fea1b-23c9-4c15-a240-398521d4d6d6)
 
 ## Usage:
 
