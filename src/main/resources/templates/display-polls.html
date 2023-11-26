@@ -18,9 +18,17 @@
         <div th:each="poll: ${polls}">
             <hr>
             <p th:text="'Poll Name: ' + ${poll.getTitle()}"></p>
-            <p th:text="'Status: ' + ${poll.status()}"></p>
-            <button class="view-poll-button" th:data-name="${poll.id}" th:onclick="redirectToPoll(this.getAttribute('data-name'))"> View Poll</button>
-            <button class="view-results-button" type="button" th:data-name="${poll.id}" th:onclick="redirectToPollResults(this.getAttribute('data-name'))">See Results</button>
+            <p id = "status" th:text="'Status: ' + ${poll.status()}"></p>
+            <div class="poll-open" th:if="${poll.closed == false}">
+                <button id = "view" class="view-poll-button" th:data-name="${poll.id}" th:onclick="redirectToPoll(this.getAttribute('data-name'))"> View Poll</button>
+                <button class="view-results-button" type="button" th:data-name="${poll.id}" th:onclick="redirectToPollResults(this.getAttribute('data-name'))">See Results</button>
+                <button class="close-poll-button" th:data-name="${poll.id}" th:onclick="closePoll()">Close Poll</button>
+            </div>
+            <div class="poll-closed" th:if="${poll.closed == true}">
+                <button class="view-poll-button" th:data-name="${poll.id}" disabled> View Poll</button>
+                <button class="view-results-button" type="button" th:data-name="${poll.id}" th:onclick="redirectToPollResults(this.getAttribute('data-name'))">See Results</button>
+                <button class="close-poll-button" th:data-name="${poll.id}" th:onclick="">Close Poll</button>
+            </div>
         </div>
     </div>
     <hr>
