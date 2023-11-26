@@ -58,12 +58,18 @@ function saveAnswers() {
         url: '/save-form',
         data: JSON.stringify(poll),
         contentType: "application/json; charset=utf-8",
+        success: function(text) {
+            alert("Poll has been submitted");
+        },
+        error: function() {
+            alert("Error");
+        }
     });
-    displayPolls();
+
 }
 
 /**
- * Redirects the display page to the desired poll given the ID
+ * Redicrects the display page to the desired poll given the ID
  * @param id
  */
 function redirectToPoll(id){
@@ -71,20 +77,7 @@ function redirectToPoll(id){
 }
 
 /**
- * closes the current poll, and alerts the backend to change status of poll
- */
-function closePoll(){
-    let pollID = document.getElementById("view").getAttribute('data-name');
-    $.ajax({
-        type: 'POST',
-        url: '/close-poll',
-        data: JSON.stringify(pollID),
-        contentType: "application/json; charset=utf-8"
-    });
-}
-
-/**
- * Redirects the display page to the desired poll given the ID
+ * Redicrects the display page to the desired poll given the ID
  * @param id
  */
 function redirectToPollResults(id){
