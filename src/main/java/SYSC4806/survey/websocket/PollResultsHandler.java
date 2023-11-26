@@ -84,6 +84,11 @@ public class PollResultsHandler extends TextWebSocketHandler {
             var pollSubscribersOpt = Optional.ofNullable(this.connections.get(subscriptionPollId));
             pollSubscribersOpt.ifPresent((pollSubscribers) -> {
                 pollSubscribers.remove(session);
+
+                // Subscriber list for poll if there are no subscribers
+                if (pollSubscribers.isEmpty()) {
+                    socketSubscriptions.get().remove(subscriptionPollId);
+                }
             });
         }
     }
