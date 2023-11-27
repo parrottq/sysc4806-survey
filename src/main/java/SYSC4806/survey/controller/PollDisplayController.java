@@ -56,7 +56,7 @@ public class PollDisplayController {
         return "current-poll";
     }
 
-    @PostMapping(value = "/close-poll")
+    @PostMapping(value = "/display-polls")
     public Poll closePoll(@RequestBody UUID id){
         var pollOpt = repo.findById(id);
         if (pollOpt.isPresent()) {

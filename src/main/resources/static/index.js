@@ -77,7 +77,7 @@ function closePoll(){
     let pollID = document.getElementById("view").getAttribute('data-name');
     $.ajax({
         type: 'POST',
-        url: '/close-poll',
+        url: '/display-polls',
         data: JSON.stringify(pollID),
         contentType: "application/json; charset=utf-8"
     });
