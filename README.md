@@ -15,6 +15,14 @@ The production version of this application can be found at: https://mini-survey.
 ![SYSC4806_SurveyChimp_UML](https://github.com/parrottq/sysc4806-survey/assets/89619482/facd81bf-d073-47c7-8c35-e534d9fa8c69)
 
 
+## Upcoming Sprint Goals
+
+1. Implement Close Poll Function
+2. Implement User System
+3. Implement Navbar
+4. Change toString implementations to json imlpementations
+
+
 ## Tools
 
 This backend of this project is built using the java programming language and Springboot framework. The frontend is constructed using plain html, css, and javascript. The database supporting this project is an H2 database which uses SQL. 
@@ -27,8 +35,8 @@ The database for this application consists of three main entities: Answer, Quest
 The ER diagram below provides a visual representation of the relationships between these entities.
 
 Schema:
+![image](https://github.com/parrottq/sysc4806-survey/assets/89619482/f5972704-894d-4643-a1b7-b6cd45a072db)
 
-![survey](https://github.com/parrottq/sysc4806-survey/assets/61538331/064fea1b-23c9-4c15-a240-398521d4d6d6)
 
 ## Usage:
 
