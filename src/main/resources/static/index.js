@@ -60,16 +60,17 @@ function saveAnswers() {
         contentType: "application/json; charset=utf-8",
         success: function(text) {
             alert("Poll has been submitted");
+            window.location.href = "/display-polls"
         },
-        error: function() {
-            alert("Error");
+        error: function(xhr, status, error) {
+            alert("Error: " + xhr.responseText);
         }
     });
 
 }
 
 /**
- * Redicrects the display page to the desired poll given the ID
+ * Redirects the display page to the desired poll given the ID
  * @param id
  */
 function redirectToPoll(id){

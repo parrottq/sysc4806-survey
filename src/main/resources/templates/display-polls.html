@@ -19,7 +19,8 @@
             <hr>
             <p th:text="'Poll Name: ' + ${poll.getTitle()}"></p>
             <p th:text="'Status: ' + ${poll.status()}"></p>
-            <button class="view-poll-button" th:data-name="${poll.id}" th:onclick="redirectToPoll(this.getAttribute('data-name'))"> View Poll</button>
+
+            <button th:if="${!pollsAnswered.contains(poll.getId().toString())}" class="view-poll-button" th:data-name="${poll.id}" th:onclick="redirectToPoll(this.getAttribute('data-name'))"> View Poll</button>
             <button class="view-results-button" type="button" th:data-name="${poll.id}" th:onclick="redirectToPollResults(this.getAttribute('data-name'))">See Results</button>
         </div>
     </div>

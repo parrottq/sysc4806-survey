@@ -6,7 +6,11 @@ import SYSC4806.survey.model.Question;
 import SYSC4806.survey.repository.AnswerRepository;
 import SYSC4806.survey.repository.PollRepository;
 import SYSC4806.survey.repository.QuestionRepository;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseCookie;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -57,7 +61,7 @@ public class CreatePollController {
      * @return
      */
     @PostMapping("/save-poll")
-    public String savePoll(@RequestBody Poll poll, ModelMap modelMap) {
+    public ResponseEntity savePoll(@RequestBody Poll poll, ModelMap modelMap, HttpServletResponse response) {
         System.out.println(poll);
         for(Question q: poll.getQuestions()) {
             for(Answer a: q.getPossibleChoices()) {
@@ -71,6 +75,16 @@ public class CreatePollController {
         List<Poll> polls = StreamSupport.stream(pollRepository.findAll().spliterator(), false)
                         .collect(Collectors.toList());
         modelMap.addAttribute("polls", polls);
-        return "view-polls";
+
+        //Create creation cookie
+        ResponseCookie responseCookie = ResponseCookie.from("poll-created",poll.getId().toString())
+                .httpOnly(true)
+                .secure(true)
+                .path("/")
+                .maxAge(7 * 24 * 60 * 60) //One week
+                .domain("localhost")
+                .build();
+
+        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, responseCookie.toString()).build();
     }
 }
