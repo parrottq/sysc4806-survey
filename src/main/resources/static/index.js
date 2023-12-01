@@ -91,8 +91,10 @@ function closePoll(button){
     });
 
     // On next reload, the dom will reflect this anyways
-    $('#status').text("Status: Closed")
+    $(button).parent().find(".view-poll-button").hide()
+    $(button).parent().parent().find(".status").text("Status: Closed")
     $(button).hide()
+    $('#view').hide()
 }
 
 /**
