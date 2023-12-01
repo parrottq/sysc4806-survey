@@ -67,7 +67,6 @@ function saveAnswers() {
             alert("Error: " + xhr.responseText);
         }
     });
-    displayPolls();
 }
 
 /**
