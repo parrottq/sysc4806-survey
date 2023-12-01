@@ -1,5 +1,6 @@
 package SYSC4806.survey.controller;
 
+import SYSC4806.survey.cookies.CookieFormatter;
 import SYSC4806.survey.model.Answer;
 import SYSC4806.survey.model.Poll;
 import SYSC4806.survey.model.Question;
@@ -61,7 +62,7 @@ public class CreatePollController {
      * @return
      */
     @PostMapping("/save-poll")
-    public ResponseEntity savePoll(@RequestBody Poll poll, ModelMap modelMap, HttpServletResponse response) {
+    public ResponseEntity savePoll(@RequestBody Poll poll, ModelMap modelMap, HttpServletResponse response, @CookieValue(value="polls-created", required = false) String pollsAnswered) {
         System.out.println(poll);
         for(Question q: poll.getQuestions()) {
             for(Answer a: q.getPossibleChoices()) {
@@ -75,16 +76,13 @@ public class CreatePollController {
         List<Poll> polls = StreamSupport.stream(pollRepository.findAll().spliterator(), false)
                         .collect(Collectors.toList());
         modelMap.addAttribute("polls", polls);
+        System.out.println(poll.getId().toString());
 
         //Create creation cookie
-        ResponseCookie responseCookie = ResponseCookie.from("poll-created",poll.getId().toString())
-                .httpOnly(true)
-                .secure(true)
-                .path("/")
-                .maxAge(7 * 24 * 60 * 60) //One week
-                .domain("localhost")
-                .build();
+        CookieFormatter cf = new CookieFormatter();
+        List<String> l = cf.getArguments(pollsAnswered);
+        l.add(poll.getId().toString());
 
-        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, responseCookie.toString()).build();
+        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cf.formatCookie("polls-created", l )).build();
     }
 }

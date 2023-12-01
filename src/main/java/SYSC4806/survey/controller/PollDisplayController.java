@@ -41,7 +41,7 @@ public class PollDisplayController {
     }
 
     @GetMapping(value = "/display-polls")
-    public String displayPolls(Model model, @CookieValue(value="polls-answered", required = false) String pollsAnswered){
+    public String displayPolls(Model model, @CookieValue(value="polls-answered", required = false) String pollsAnswered, @CookieValue(value="polls-created", required = false) String pollsCreated){
         List<Poll> polls = StreamSupport.stream(repo.findAll().spliterator(), false)
                 .collect(Collectors.toList());
         model.addAttribute("polls", polls);
@@ -49,17 +49,13 @@ public class PollDisplayController {
         //Need to process cookie, and formulate a separate list to check whether to display button
         CookieFormatter cf = new CookieFormatter();
         model.addAttribute("pollsAnswered", cf.getArguments(pollsAnswered));
+        model.addAttribute("pollsCreated", cf.getArguments(pollsCreated));
 
         return "display-polls";
     }
 
     @GetMapping(value = "/current-poll/{id}")
-    public String viewPoll(Model model, @PathVariable UUID id, @CookieValue("poll-created") String pollCookie){
-
-//        //If the user has already answered the poll, return them to the main page
-//        if(pollCookie.equals(id.toString())) {
-//            return "display-polls";
-//        }
+    public String viewPoll(Model model, @PathVariable UUID id){
 
         if (repo.findById(id).isPresent()){
             model.addAttribute("poll", repo.findById(id).get());
@@ -81,6 +77,15 @@ public class PollDisplayController {
     @PostMapping(value = "/save-form")
     public ResponseEntity<String> saveAnswers(@RequestBody Poll referencePoll, @CookieValue(value="polls-answered", required = false) String pollsAnswered){
         Poll actualPoll;
+
+        CookieFormatter cf = new CookieFormatter();
+        List<String> l = cf.getArguments(pollsAnswered);
+
+        //Check if user has already answered poll
+        if(l.contains(referencePoll.getId().toString())) {
+            return ResponseEntity.badRequest().body("User has already answered this poll");
+        }
+
         if (repo.findById(referencePoll.getId()).isPresent()){
             actualPoll = repo.findById(referencePoll.getId()).get();
             for(Question q: referencePoll.getQuestions()) {
@@ -102,14 +107,6 @@ public class PollDisplayController {
         }
 
         // Add cookie saying this user has answered
-
-        CookieFormatter cf = new CookieFormatter();
-        List<String> l = cf.getArguments(pollsAnswered);
-
-        //Check if user has already answered poll
-        if(l.contains(referencePoll.getId().toString())) {
-            return ResponseEntity.badRequest().body("User has already answered this poll");
-        }
 
         l.add(referencePoll.getId().toString());
 

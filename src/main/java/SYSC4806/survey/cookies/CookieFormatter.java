@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 
 public class CookieFormatter {
     private final String DELIMITER = ":";
-    private final String DOMAIN = "localhost";
     private final int AGE = 7 * 24 * 60 * 60; // 1 week
 
     /**
@@ -31,7 +30,6 @@ public class CookieFormatter {
                 .secure(true)
                 .path("/")
                 .maxAge(AGE) //One week
-                .domain(DOMAIN)
                 .build()
                 .toString();
     }
