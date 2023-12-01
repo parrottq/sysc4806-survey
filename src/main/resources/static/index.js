@@ -58,6 +58,7 @@ function saveAnswers() {
         url: '/save-form',
         data: JSON.stringify(poll),
         contentType: "application/json; charset=utf-8",
+
         success: function(text) {
             alert("Poll has been submitted");
             window.location.href = "/display-polls"
@@ -66,7 +67,7 @@ function saveAnswers() {
             alert("Error: " + xhr.responseText);
         }
     });
-
+    displayPolls();
 }
 
 /**
@@ -78,7 +79,20 @@ function redirectToPoll(id){
 }
 
 /**
- * Redicrects the display page to the desired poll given the ID
+ * closes the current poll, and alerts the backend to change status of poll
+ */
+function closePoll(){
+    let pollID = document.getElementById("view").getAttribute('data-name');
+    $.ajax({
+        type: 'POST',
+        url: '/display-polls',
+        data: JSON.stringify(pollID),
+        contentType: "application/json; charset=utf-8"
+    });
+}
+
+/**
+ * Redirects the display page to the desired poll given the ID
  * @param id
  */
 function redirectToPollResults(id){

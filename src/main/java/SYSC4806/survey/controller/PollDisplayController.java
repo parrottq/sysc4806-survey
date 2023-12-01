@@ -67,6 +67,17 @@ public class PollDisplayController {
         return "current-poll";
     }
 
+    @PostMapping(value = "/display-polls")
+    public Poll closePoll(@RequestBody UUID id){
+        var pollOpt = repo.findById(id);
+        if (pollOpt.isPresent()) {
+            Poll poll = pollOpt.get();
+            poll.setClosed(true);
+            return repo.save(poll);
+        }
+        return new Poll();
+    }
+
     @PostMapping(value = "/save-form")
     public ResponseEntity<String> saveAnswers(@RequestBody Poll referencePoll, @CookieValue(value="polls-answered", required = false) String pollsAnswered){
         Poll actualPoll;
