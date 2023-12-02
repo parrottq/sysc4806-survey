@@ -1,6 +1,6 @@
 package SYSC4806.survey.controller;
 
-import SYSC4806.survey.cookies.CookieFormatter;
+import SYSC4806.survey.cookies.CookieFormatDelimiter;
 import SYSC4806.survey.model.Answer;
 import SYSC4806.survey.model.Poll;
 import SYSC4806.survey.model.Question;
@@ -31,6 +31,8 @@ public class PollDisplayController {
     private final AnswerRepository answerRepo;
     private final QuestionRepository questionRepo;
     private final PollResultsHandler pollResultsHandler;
+    @Autowired
+    private CookieFormatDelimiter cf;
 
     @Autowired
     public PollDisplayController(PollRepository repo, AnswerRepository answerRepo, QuestionRepository questionRepo, PollResultsHandler pollResultsHandler){
@@ -47,9 +49,8 @@ public class PollDisplayController {
         model.addAttribute("polls", polls);
 
         //Need to process cookie, and formulate a separate list to check whether to display button
-        CookieFormatter cf = new CookieFormatter();
-        model.addAttribute("pollsAnswered", cf.getArguments(pollsAnswered));
-        model.addAttribute("pollsCreated", cf.getArguments(pollsCreated));
+        model.addAttribute("pollsAnswered", cf.decodeCookie(pollsAnswered));
+        model.addAttribute("pollsCreated", cf.decodeCookie(pollsCreated));
 
         return "display-polls";
     }
@@ -78,8 +79,7 @@ public class PollDisplayController {
     public ResponseEntity<String> saveAnswers(@RequestBody Poll referencePoll, @CookieValue(value="polls-answered", required = false) String pollsAnswered){
         Poll actualPoll;
 
-        CookieFormatter cf = new CookieFormatter();
-        List<String> l = cf.getArguments(pollsAnswered);
+        List<String> l = cf.decodeCookie(pollsAnswered);
 
         //Check if user has already answered poll
         if(l.contains(referencePoll.getId().toString())) {

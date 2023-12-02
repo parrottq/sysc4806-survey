@@ -1,6 +1,6 @@
 package SYSC4806.survey.controller;
 
-import SYSC4806.survey.cookies.CookieFormatter;
+import SYSC4806.survey.cookies.CookieFormatDelimiter;
 import SYSC4806.survey.model.Answer;
 import SYSC4806.survey.model.Poll;
 import SYSC4806.survey.model.Question;
@@ -10,7 +10,6 @@ import SYSC4806.survey.repository.QuestionRepository;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,6 +32,8 @@ public class CreatePollController {
     private QuestionRepository questionRepository;
     @Autowired
     private AnswerRepository answerRepository;
+    @Autowired
+    private CookieFormatDelimiter cf;
 
     /**
      * Creates a new poll for the homepage
@@ -76,11 +77,9 @@ public class CreatePollController {
         List<Poll> polls = StreamSupport.stream(pollRepository.findAll().spliterator(), false)
                         .collect(Collectors.toList());
         modelMap.addAttribute("polls", polls);
-        System.out.println(poll.getId().toString());
 
         //Create creation cookie
-        CookieFormatter cf = new CookieFormatter();
-        List<String> l = cf.getArguments(pollsAnswered);
+        List<String> l = cf.decodeCookie(pollsAnswered);
         l.add(poll.getId().toString());
 
         return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cf.formatCookie("polls-created", l )).build();

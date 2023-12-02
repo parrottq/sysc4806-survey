@@ -1,16 +1,17 @@
 package SYSC4806.survey.cookies;
 
 import org.springframework.http.ResponseCookie;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CookieFormatter {
-    private final String DELIMITER = ":";
-    private final int AGE = 7 * 24 * 60 * 60; // 1 week
+@Service
+public class CookieFormatDelimiter {
+    private static final String DELIMITER = ":";
+    private static final int AGE = 7 * 24 * 60 * 60; // 1 week
 
     /**
      * Centralized way of creating cookies with potentially multiple arguments/values
@@ -39,7 +40,7 @@ public class CookieFormatter {
      * @param cookie
      * @return
      */
-    public List<String> getArguments(String cookie) {
+    public List<String> decodeCookie(String cookie) {
         if(cookie == null) return new ArrayList<>();
         return Arrays.stream(cookie.split(DELIMITER)).collect(Collectors.toList());
     }
