@@ -6,27 +6,26 @@ function saveAnswers() {
     let questions = [];
     let pollID = document.getElementById("poll-id").getAttribute('data-value');
 
-    $('.multiple-choice').each(function() {
+    document.querySelectorAll('.multiple-choice .choice').forEach(function(selectedInput) {
         let answers = [];
         let question;
-        document.querySelectorAll('.multiple-choice .choice').forEach(function(selectedInput) {
-            if (selectedInput.checked) {
-                let answer = {
-                    "id" : generateUUID(),
-                    "answerChoice" : selectedInput.value
-                }
-                answers.push(answer)
-                
-                question = {
-                    "id" : selectedInput.getAttribute('data-name'),
-                    "title" : " ",
-                    "questionType" : null,
-                    "possibleChoices" : [],
-                    "answers" : answers
-                }
-                questions.push(question)
+
+        if (selectedInput.checked) {
+            let answer = {
+                "id" : generateUUID(),
+                "answerChoice" : selectedInput.value
             }
-        });
+            answers.push(answer)
+
+            question = {
+                "id" : selectedInput.getAttribute('data-name'),
+                "title" : " ",
+                "questionType" : null,
+                "possibleChoices" : [],
+                "answers" : answers
+            }
+            questions.push(question)
+        }
     });
 
     document.querySelectorAll('.textfield-question input').forEach(function(textAnswer){
