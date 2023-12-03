@@ -58,8 +58,15 @@ function saveAnswers() {
         url: '/save-form',
         data: JSON.stringify(poll),
         contentType: "application/json; charset=utf-8",
+
+        success: function(text) {
+            alert("Poll has been submitted");
+            window.location.href = "/display-polls"
+        },
+        error: function(xhr, status, error) {
+            alert("Error: " + xhr.responseText);
+        }
     });
-    displayPolls();
 }
 
 /**
@@ -73,14 +80,21 @@ function redirectToPoll(id){
 /**
  * closes the current poll, and alerts the backend to change status of poll
  */
-function closePoll(){
-    let pollID = document.getElementById("view").getAttribute('data-name');
+function closePoll(button){
+    pollId = $(button).attr("data-name")
+
     $.ajax({
         type: 'POST',
         url: '/display-polls',
-        data: JSON.stringify(pollID),
+        data: JSON.stringify(pollId),
         contentType: "application/json; charset=utf-8"
     });
+
+    // On next reload, the dom will reflect this anyways
+    $(button).parent().find(".view-poll-button").hide()
+    $(button).parent().parent().find(".status").text("Status: Closed")
+    $(button).hide()
+    $('#view').hide()
 }
 
 /**

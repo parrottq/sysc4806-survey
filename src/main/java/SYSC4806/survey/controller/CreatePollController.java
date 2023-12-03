@@ -1,12 +1,16 @@
 package SYSC4806.survey.controller;
 
+import SYSC4806.survey.cookies.CookieFormatDelimiter;
 import SYSC4806.survey.model.Answer;
 import SYSC4806.survey.model.Poll;
 import SYSC4806.survey.model.Question;
 import SYSC4806.survey.repository.AnswerRepository;
 import SYSC4806.survey.repository.PollRepository;
 import SYSC4806.survey.repository.QuestionRepository;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -28,6 +32,8 @@ public class CreatePollController {
     private QuestionRepository questionRepository;
     @Autowired
     private AnswerRepository answerRepository;
+    @Autowired
+    private CookieFormatDelimiter cf;
 
     /**
      * Creates a new poll for the homepage
@@ -57,7 +63,7 @@ public class CreatePollController {
      * @return
      */
     @PostMapping("/save-poll")
-    public String savePoll(@RequestBody Poll poll, ModelMap modelMap) {
+    public ResponseEntity savePoll(@RequestBody Poll poll, ModelMap modelMap, HttpServletResponse response, @CookieValue(value="polls-created", required = false) String pollsAnswered) {
         System.out.println(poll);
         for(Question q: poll.getQuestions()) {
             for(Answer a: q.getPossibleChoices()) {
@@ -71,6 +77,11 @@ public class CreatePollController {
         List<Poll> polls = StreamSupport.stream(pollRepository.findAll().spliterator(), false)
                         .collect(Collectors.toList());
         modelMap.addAttribute("polls", polls);
-        return "view-polls";
+
+        //Create creation cookie
+        List<String> l = cf.decodeCookie(pollsAnswered);
+        l.add(poll.getId().toString());
+
+        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cf.formatCookie("polls-created", l )).build();
     }
 }

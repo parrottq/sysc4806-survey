@@ -18,16 +18,16 @@
         <div th:each="poll: ${polls}">
             <hr>
             <p th:text="'Poll Name: ' + ${poll.getTitle()}"></p>
-            <p id = "status" th:text="'Status: ' + ${poll.status()}"></p>
+            <p class = "status" th:text="'Status: ' + ${poll.status()}"></p>
             <div class="poll-open" th:if="${poll.closed == false}">
-                <button id = "view" class="view-poll-button" th:data-name="${poll.id}" th:onclick="redirectToPoll(this.getAttribute('data-name'))"> View Poll</button>
+                <button th:if="${!pollsAnswered.contains(poll.getId().toString())}" class="view-poll-button" th:data-name="${poll.id}" th:onclick="redirectToPoll(this.getAttribute('data-name'))"> View Poll</button>
                 <button class="view-results-button" type="button" th:data-name="${poll.id}" th:onclick="redirectToPollResults(this.getAttribute('data-name'))">See Results</button>
-                <button class="close-poll-button" th:data-name="${poll.id}" th:onclick="closePoll()">Close Poll</button>
+                <button th:if="${pollsCreated.contains(poll.getId().toString())}" class="close-poll-button" th:data-name="${poll.id}" onclick="closePoll(this)">Close Poll</button>
             </div>
             <div class="poll-closed" th:if="${poll.closed == true}">
-                <button class="view-poll-button" th:data-name="${poll.id}" disabled> View Poll</button>
+<!--                <button th:if="${!pollsAnswered.contains(poll.getId().toString())}" class="view-poll-button" th:data-name="${poll.id}" disabled> View Poll</button>-->
                 <button class="view-results-button" type="button" th:data-name="${poll.id}" th:onclick="redirectToPollResults(this.getAttribute('data-name'))">See Results</button>
-                <button class="close-poll-button" th:data-name="${poll.id}" th:onclick="">Close Poll</button>
+<!--                <button th:if="${pollsCreated.contains(poll.getId().toString())}" class="close-poll-button" th:data-name="${poll.id}" th:onclick="">Close Poll</button>-->
             </div>
         </div>
     </div>

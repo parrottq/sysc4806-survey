@@ -1,5 +1,6 @@
 package SYSC4806.survey.controller;
 
+import SYSC4806.survey.cookies.CookieFormatDelimiter;
 import SYSC4806.survey.model.Answer;
 import SYSC4806.survey.model.Poll;
 import SYSC4806.survey.model.Question;
@@ -9,12 +10,11 @@ import SYSC4806.survey.repository.QuestionRepository;
 import SYSC4806.survey.websocket.PollResultsHandler;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -31,6 +31,8 @@ public class PollDisplayController {
     private final AnswerRepository answerRepo;
     private final QuestionRepository questionRepo;
     private final PollResultsHandler pollResultsHandler;
+    @Autowired
+    private CookieFormatDelimiter cf;
 
     @Autowired
     public PollDisplayController(PollRepository repo, AnswerRepository answerRepo, QuestionRepository questionRepo, PollResultsHandler pollResultsHandler){
@@ -41,15 +43,21 @@ public class PollDisplayController {
     }
 
     @GetMapping(value = "/display-polls")
-    public String displayPolls(Model model){
+    public String displayPolls(Model model, @CookieValue(value="polls-answered", required = false) String pollsAnswered, @CookieValue(value="polls-created", required = false) String pollsCreated){
         List<Poll> polls = StreamSupport.stream(repo.findAll().spliterator(), false)
                 .collect(Collectors.toList());
         model.addAttribute("polls", polls);
+
+        //Need to process cookie, and formulate a separate list to check whether to display button
+        model.addAttribute("pollsAnswered", cf.decodeCookie(pollsAnswered));
+        model.addAttribute("pollsCreated", cf.decodeCookie(pollsCreated));
+
         return "display-polls";
     }
 
     @GetMapping(value = "/current-poll/{id}")
     public String viewPoll(Model model, @PathVariable UUID id){
+
         if (repo.findById(id).isPresent()){
             model.addAttribute("poll", repo.findById(id).get());
         }
@@ -68,8 +76,16 @@ public class PollDisplayController {
     }
 
     @PostMapping(value = "/save-form")
-    public String saveAnswers(@RequestBody Poll referencePoll){
+    public ResponseEntity<String> saveAnswers(@RequestBody Poll referencePoll, @CookieValue(value="polls-answered", required = false) String pollsAnswered){
         Poll actualPoll;
+
+        List<String> l = cf.decodeCookie(pollsAnswered);
+
+        //Check if user has already answered poll
+        if(l.contains(referencePoll.getId().toString())) {
+            return ResponseEntity.badRequest().body("User has already answered this poll");
+        }
+
         if (repo.findById(referencePoll.getId()).isPresent()){
             actualPoll = repo.findById(referencePoll.getId()).get();
             for(Question q: referencePoll.getQuestions()) {
@@ -89,6 +105,11 @@ public class PollDisplayController {
                 pollResultsHandler.pushPollUpdate(actualPoll.getId());
             } catch (JsonProcessingException ignored) {}
         }
-        return "view-polls";
+
+        // Add cookie saying this user has answered
+
+        l.add(referencePoll.getId().toString());
+
+        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cf.formatCookie("polls-answered",l )).build();
     }
 }
