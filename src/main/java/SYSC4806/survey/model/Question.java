@@ -1,5 +1,7 @@
 package SYSC4806.survey.model;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -79,15 +81,11 @@ public class Question implements Serializable {
     }
 
     public String toString() {
-        String s = "";
-        s += "Title:" + title;
-        s += "|id:" + id;
-        s += "|question-type" + questionType;
-        if (questionType==Type.MultipleChoice){
-            s += "|choices:" + possibleChoices;
+        var objectMapper = new ObjectMapper();
+        try {
+            return objectMapper.writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
         }
-        s += "|answers" + answers.toString();
-
-        return s;
     }
 }

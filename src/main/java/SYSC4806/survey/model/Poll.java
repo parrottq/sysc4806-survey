@@ -1,5 +1,7 @@
 package SYSC4806.survey.model;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -70,12 +72,11 @@ public class Poll implements Serializable {
     }
 
     public String toString() {
-        String s = "";
-        s += "Survey-Title:" + title;
-        s += "|isClosed:" + isClosed;
-        s += "|id:" + id;
-        s += "|questions:" + questions;
-
-        return s;
+        var objectMapper = new ObjectMapper();
+        try {
+            return objectMapper.writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
