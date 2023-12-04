@@ -1,10 +1,11 @@
 package SYSC4806.survey.model;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import org.hibernate.annotations.UuidGenerator;
 
 import java.io.Serializable;
 import java.util.UUID;
@@ -42,9 +43,11 @@ public class Answer implements Serializable {
     }
 
     public String toString() {
-        String s = "";
-        s += "AnswerChoice:" + answerChoice;
-        s += "|id:" + id;
-        return s;
+        var objectMapper = new ObjectMapper();
+        try {
+            return objectMapper.writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
