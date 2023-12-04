@@ -11,6 +11,12 @@
     <script type="text/javascript" th:src="@{/index.js}"></script>
 </head>
 <body>
+    <nav class="site-nav">
+        <i class="fa-regular fa-paper-plane nav-icon"></i>
+        <h1 class="site-title">Mini-Survey</h1>
+        <button style="margin-left: auto" onclick="location.href='/create'">Create</button>
+        <button onclick="location.href='/display-polls'">View Polls</button>
+    </nav>
     <div class="poll-title-container">
         <h1>List of Polls</h1>
     </div>
@@ -32,6 +38,5 @@
         </div>
     </div>
     <hr>
-    <button id="return" class="return-button" type="button" onclick="returnToHomePage()">Return to Main Page</button>
 </body>
 </html>
