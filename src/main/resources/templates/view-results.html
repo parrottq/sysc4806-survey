@@ -97,6 +97,9 @@
         //     }
         // });
         // }
+        let pollDataFromServer;
+
+        pollDataFromServer = pollData;
 
         let elem = document.getElementById("poll_id");
         // const regex = /[a-z,0-9]{8}-[a-z,0-9]{4}-4[a-z,0-9]{3}-[89AB][a-z,0-9]{3}-[a-z,0-9]{12}$/;
@@ -104,16 +107,10 @@
 
         $(document).ready(function() {
 
-            let pollDataFromServer;
-
-            pollDataFromServer = pollData;
-
             for (let question of pollDataFromServer.questions) {
-                // Check if the question is a multiple-choice question
                 if (question.questionType === 'MultipleChoice') {
                     // Generate the pie chart
                     Highcharts.chart('pie-chart-' + question.id, {
-                        // Your Highcharts configuration options for each chart
                         chart: {
                             type: 'pie'
                         },
@@ -125,10 +122,7 @@
                             text: 'animation of pie series',
                             align: 'left'
                         },
-                        // ... (other Highcharts options)
-                        // series: [{
-                        //     data: pollDataFromServer // Use poll data as needed
-                        // }]
+
                         series: [{
                             // Disable mouse tracking on load, enable after custom animation
                             enableMouseTracking: false,
@@ -136,85 +130,53 @@
                                 duration: 2000
                             },
                             colorByPoint: true,
-                            data: [{
-                                name: 'Always',
-                                y: 0
-                            }, {
-                                name: 'Sometimes',
-                                y: 0
-                            }, {
-                                name: 'One in a while',
-                                y: 0
-                            }, {
-                                name: 'Never',
-                                y: 0
-                            }, {
-                                name: 'Prefer not to answer',
-                                y: 0
-                            }]
+                            data: getChartDataForQuestion(question)
+                            // data: [{
+                            //     name: 'Always',
+                            //     y: 0
+                            // }, {
+                            //     name: 'Sometimes',
+                            //     y: 0
+                            // }, {
+                            //     name: 'One in a while',
+                            //     y: 0
+                            // }, {
+                            //     name: 'Never',
+                            //     y: 0
+                            // }, {
+                            //     name: 'Prefer not to answer',
+                            //     y: 0
+                            // }]
                         }]
                     });
                 }
             }
         });
 
-        //     // Iterate through each question
-        //     $(".pie-chart-container").each(function() {
-        //         // Get the question ID from the container ID
-        //         let questionId = $(this).attr("id").split("-")[2];
-        //
-        //         // Get the question type from the data attribute
-        //         let questionType = $("#question-" + questionId).data("question-type");
-        //
-        //
-        //         // Check if the question is of type "MultipleChoice"
-        //         if (questionType === "MultipleChoice") {
-        //             // Use pollDataFromServer to access poll data and generate Highcharts chart
-        //             Highcharts.chart('pie-chart-container-' + questionId, {
-        //                 // Your Highcharts configuration options for each chart
-        //                 chart: {
-        //                     type: 'pie'
-        //                 },
-        //                 title: {
-        //                     text: 'Results',
-        //                     align: 'left'
-        //                 },
-        //                 subtitle: {
-        //                     text: 'animation of pie series',
-        //                     align: 'left'
-        //                 },
-        //                 // ... (other Highcharts options)
-        //                 // series: [{
-        //                 //     data: pollDataFromServer // Use poll data as needed
-        //                 // }]
-        //                 series: [{
-        //                     // Disable mouse tracking on load, enable after custom animation
-        //                     enableMouseTracking: false,
-        //                     animation: {
-        //                         duration: 2000
-        //                     },
-        //                     colorByPoint: true,
-        //                     data: [{
-        //                         name: 'Always',
-        //                         y: 21.3
-        //                     }, {
-        //                         name: 'Sometimes',
-        //                         y: 18.7
-        //                     }, {
-        //                         name: 'One in a while',
-        //                         y: 20.2
-        //                     }, {
-        //                         name: 'Never',
-        //                         y: 14.2
-        //                     }, {
-        //                         name: 'Prefer not to answer',
-        //                         y: 25.6
-        //                     }]
-        //                 }]
-        //             });
-        //         }
-        //     });
-        // });
+        function getChartDataForQuestion(question) {
+            let data = [];
+
+            // Iterate over the possible choices of the question
+            for (let choice of question.possibleChoices) {
+                let choiceData = {
+                    name: choice.answerChoice,
+                    y: 0  // Initialize the count to 0
+                };
+
+                // Iterate over the answers of the question
+                for (let answer of question.answers) {
+                    if (answer.answerChoice === choice.answerChoice) {
+                        choiceData.y++;
+                    }
+                }
+
+                // Add the choice data to the data array
+                data.push(choiceData);
+            }
+
+            return data;
+        }
+
 
     </script>
 </body>
