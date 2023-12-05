@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
     (function (H) {
         H.seriesTypes.pie.prototype.animate = function (init) {
             const series = this,
@@ -74,61 +74,67 @@ $(document).ready(function() {
         };
     }(Highcharts));
 
-    Highcharts.chart('pie-chart', {
-        chart: {
-            type: 'pie'
-        },
-        title: {
-            text: 'Results',
-            align: 'left'
-        },
-        subtitle: {
-            text: 'animation of pie series',
-            align: 'left'
-        },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        accessibility: {
-            point: {
-                valueSuffix: '%'
-            }
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                borderWidth: 2,
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: true,
-                    format: '<b>{point.name}</b><br>{point.percentage}%',
-                    distance: 20
-                }
-            }
-        },
-        series: [{
-            // Disable mouse tracking on load, enable after custom animation
-            enableMouseTracking: false,
-            animation: {
-                duration: 2000
-            },
-            colorByPoint: true,
-            data: [{
-                name: 'Always',
-                y: 21.3
-            }, {
-                name: 'Sometimes',
-                y: 18.7
-            }, {
-                name: 'One in a while',
-                y: 20.2
-            }, {
-                name: 'Never',
-                y: 14.2
-            }, {
-                name: 'Prefer not to answer',
-                y: 25.6
-            }]
-        }]
-    });
+
+    let pollDataFromServer;
+    pollDataFromServer = pollData;
+
+    for (let question of pollDataFromServer.questions) {
+        if (question.questionType === 'MultipleChoice') {
+
+            // Generate the pie chart
+            Highcharts.chart('pie-chart-' + question.id, {
+                chart: {
+                    type: 'pie',
+                },
+                title: {
+                    text: 'Results',
+                    align: 'left'
+                },
+                tooltip: {
+                    formatter: function () {
+                        return '<b>' + this.point.name + '</b>: ' + this.point.y;
+                    }
+                },
+
+
+                series: [{
+                    enableMouseTracking: false,
+                    animation: {
+                        duration: 500
+                    },
+                    colorByPoint: true,
+                    data: getChartDataForQuestion(question)
+                }]
+            });
+        }
+    }
+
 });
+
+function getChartDataForQuestion(question) {
+    let data = [];
+
+    for (let choice of question.possibleChoices) {
+        let choiceData = {
+            name: choice.answerChoice,
+            y: 0  // Initialize the count to 0
+        };
+
+        for (let answer of question.answers) {
+            if (answer.answerChoice === choice.answerChoice) {
+                choiceData.y++;
+            }
+        }
+
+        data.push(choiceData);
+    }
+
+    return data;
+}
+
+
+function updateChartData(chart, question) {
+    let newData = getChartDataForQuestion(question);
+
+    chart.series[0].setData(newData);
+}

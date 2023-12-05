@@ -97,87 +97,70 @@
         //     }
         // });
         // }
-        let pollDataFromServer;
 
-        pollDataFromServer = pollData;
+        // let pollDataFromServer;
+        //
+        // pollDataFromServer = pollData;
 
         let elem = document.getElementById("poll_id");
         // const regex = /[a-z,0-9]{8}-[a-z,0-9]{4}-4[a-z,0-9]{3}-[89AB][a-z,0-9]{3}-[a-z,0-9]{12}$/;
         subscribe(elem.innerHTML.split(": ")[1]);
 
-        $(document).ready(function() {
-
-            for (let question of pollDataFromServer.questions) {
-                if (question.questionType === 'MultipleChoice') {
-                    // Generate the pie chart
-                    Highcharts.chart('pie-chart-' + question.id, {
-                        chart: {
-                            type: 'pie'
-                        },
-                        title: {
-                            text: 'Results',
-                            align: 'left'
-                        },
-                        subtitle: {
-                            text: 'animation of pie series',
-                            align: 'left'
-                        },
-
-                        series: [{
-                            // Disable mouse tracking on load, enable after custom animation
-                            enableMouseTracking: false,
-                            animation: {
-                                duration: 2000
-                            },
-                            colorByPoint: true,
-                            data: getChartDataForQuestion(question)
-                            // data: [{
-                            //     name: 'Always',
-                            //     y: 0
-                            // }, {
-                            //     name: 'Sometimes',
-                            //     y: 0
-                            // }, {
-                            //     name: 'One in a while',
-                            //     y: 0
-                            // }, {
-                            //     name: 'Never',
-                            //     y: 0
-                            // }, {
-                            //     name: 'Prefer not to answer',
-                            //     y: 0
-                            // }]
-                        }]
-                    });
-                }
-            }
-        });
-
-        function getChartDataForQuestion(question) {
-            let data = [];
-
-            // Iterate over the possible choices of the question
-            for (let choice of question.possibleChoices) {
-                let choiceData = {
-                    name: choice.answerChoice,
-                    y: 0  // Initialize the count to 0
-                };
-
-                // Iterate over the answers of the question
-                for (let answer of question.answers) {
-                    if (answer.answerChoice === choice.answerChoice) {
-                        choiceData.y++;
-                    }
-                }
-
-                // Add the choice data to the data array
-                data.push(choiceData);
-            }
-
-            return data;
-        }
-
-
+        // $(document).ready(function() {
+        //
+        //     for (let question of pollDataFromServer.questions) {
+        //         if (question.questionType === 'MultipleChoice') {
+        //             // Generate the pie chart
+        //             Highcharts.chart('pie-chart-' + question.id, {
+        //                 chart: {
+        //                     type: 'pie'
+        //                 },
+        //                 title: {
+        //                     text: 'Results',
+        //                     align: 'left'
+        //                 },
+        //                 subtitle: {
+        //                     text: 'animation of pie series',
+        //                     align: 'left'
+        //                 },
+        //
+        //                 series: [{
+        //                     // Disable mouse tracking on load, enable after custom animation
+        //                     enableMouseTracking: false,
+        //                     animation: {
+        //                         duration: 2000
+        //                     },
+        //                     colorByPoint: true,
+        //                     data: getChartDataForQuestion(question)
+        //                 }]
+        //             });
+        //         }
+        //     }
+        // });
+        //
+        // function getChartDataForQuestion(question) {
+        //     let data = [];
+        //
+        //     // Iterate over the possible choices of the question
+        //     for (let choice of question.possibleChoices) {
+        //         let choiceData = {
+        //             name: choice.answerChoice,
+        //             y: 0  // Initialize the count to 0
+        //         };
+        //
+        //         // Iterate over the answers of the question
+        //         for (let answer of question.answers) {
+        //             if (answer.answerChoice === choice.answerChoice) {
+        //                 choiceData.y++;
+        //             }
+        //         }
+        //
+        //         // Add the choice data to the data array
+        //         data.push(choiceData);
+        //     }
+        //
+        //     return data;
+        // }
     </script>
 </body>
 </html>
