@@ -16,6 +16,9 @@
     <link rel="icon" type="image/x-icon" th:src="@{/images/favicon.ico}">
 </head>
 <body>
+    <script th:inline="javascript">
+        var pollData = /*[[${poll}]]*/ null;
+    </script>
     <nav class="site-nav">
         <i class="fa-regular fa-paper-plane nav-icon"></i>
         <h1 class="site-title">Mini-Survey</h1>
@@ -32,7 +35,28 @@
                 </button>
             </div>
             <div class="center-text" th:each="question: ${poll.questions}">
-                <div id="question">
+<!--                <div id="question">-->
+<!--                    <hr>-->
+<!--                    <p th:text="'ID: ' + ${question.id}"></p>-->
+<!--                    <p th:text="'   Question: ' + ${question.title}"></p>-->
+<!--                    <div th:switch="${question.questionType}">-->
+<!--                        <p th:case="'MultipleChoice'">-->
+<!--                            <div th:each="choice: ${question.possibleChoices}">-->
+<!--                                <p th:text="'Choice: ' + ${choice.getAnswerChoice()}"></p>-->
+<!--                            </div>-->
+<!--                        </p>-->
+<!--                    </div>-->
+<!--                    <p>Answers:</p>-->
+<!--&lt;!&ndash;                    <button type="open-button" class="collapsible">Open Collapsible</button>&ndash;&gt;-->
+<!--                    <div id="answers">-->
+<!--                        <div th:each="answer: ${question.answers}">-->
+<!--                            <p th:text="${answer.getAnswerChoice()}"></p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+                <div id="question" th:data-question-type="${question.questionType}">
+<!--                <div id="question-${question.id}" th:data-question-type="${question.questionType}">-->
+
                     <hr>
                     <p th:text="'ID: ' + ${question.id}"></p>
                     <p th:text="'   Question: ' + ${question.title}"></p>
@@ -41,23 +65,19 @@
                             <div th:each="choice: ${question.possibleChoices}">
                                 <p th:text="'Choice: ' + ${choice.getAnswerChoice()}"></p>
                             </div>
+                            <div th:id="'pie-chart-' + ${question.id}"></div>
                         </p>
-                    </div>
-                    <p>Answers:</p>
-<!--                    <button type="open-button" class="collapsible">Open Collapsible</button>-->
-                    <div id="answers">
-                        <div th:each="answer: ${question.answers}">
-                            <p th:text="${answer.getAnswerChoice()}"></p>
-                        </div>
+                        <p th:case="'Text'">
+                            <p>Answers:</p>
+                            <div id="answers">
+                                <div th:each="answer: ${question.answers}">
+                                    <p th:text="${answer.getAnswerChoice()}"></p>
+                                </div>
+                            </div>
+                        </p>
                     </div>
                 </div>
             </div>
-            <figure class="highcharts-figure">
-                <div id="pie-chart"></div>
-                <p class="highcharts-description">
-                    Demo showing a custom entrance animation.
-                </p>
-            </figure>
         </div>
     </div>
     <script>
@@ -81,6 +101,121 @@
         let elem = document.getElementById("poll_id");
         // const regex = /[a-z,0-9]{8}-[a-z,0-9]{4}-4[a-z,0-9]{3}-[89AB][a-z,0-9]{3}-[a-z,0-9]{12}$/;
         subscribe(elem.innerHTML.split(": ")[1]);
+
+        $(document).ready(function() {
+
+            let pollDataFromServer;
+
+            pollDataFromServer = pollData;
+
+            for (let question of pollDataFromServer.questions) {
+                // Check if the question is a multiple-choice question
+                if (question.questionType === 'MultipleChoice') {
+                    // Generate the pie chart
+                    Highcharts.chart('pie-chart-' + question.id, {
+                        // Your Highcharts configuration options for each chart
+                        chart: {
+                            type: 'pie'
+                        },
+                        title: {
+                            text: 'Results',
+                            align: 'left'
+                        },
+                        subtitle: {
+                            text: 'animation of pie series',
+                            align: 'left'
+                        },
+                        // ... (other Highcharts options)
+                        // series: [{
+                        //     data: pollDataFromServer // Use poll data as needed
+                        // }]
+                        series: [{
+                            // Disable mouse tracking on load, enable after custom animation
+                            enableMouseTracking: false,
+                            animation: {
+                                duration: 2000
+                            },
+                            colorByPoint: true,
+                            data: [{
+                                name: 'Always',
+                                y: 0
+                            }, {
+                                name: 'Sometimes',
+                                y: 0
+                            }, {
+                                name: 'One in a while',
+                                y: 0
+                            }, {
+                                name: 'Never',
+                                y: 0
+                            }, {
+                                name: 'Prefer not to answer',
+                                y: 0
+                            }]
+                        }]
+                    });
+                }
+            }
+        });
+
+        //     // Iterate through each question
+        //     $(".pie-chart-container").each(function() {
+        //         // Get the question ID from the container ID
+        //         let questionId = $(this).attr("id").split("-")[2];
+        //
+        //         // Get the question type from the data attribute
+        //         let questionType = $("#question-" + questionId).data("question-type");
+        //
+        //
+        //         // Check if the question is of type "MultipleChoice"
+        //         if (questionType === "MultipleChoice") {
+        //             // Use pollDataFromServer to access poll data and generate Highcharts chart
+        //             Highcharts.chart('pie-chart-container-' + questionId, {
+        //                 // Your Highcharts configuration options for each chart
+        //                 chart: {
+        //                     type: 'pie'
+        //                 },
+        //                 title: {
+        //                     text: 'Results',
+        //                     align: 'left'
+        //                 },
+        //                 subtitle: {
+        //                     text: 'animation of pie series',
+        //                     align: 'left'
+        //                 },
+        //                 // ... (other Highcharts options)
+        //                 // series: [{
+        //                 //     data: pollDataFromServer // Use poll data as needed
+        //                 // }]
+        //                 series: [{
+        //                     // Disable mouse tracking on load, enable after custom animation
+        //                     enableMouseTracking: false,
+        //                     animation: {
+        //                         duration: 2000
+        //                     },
+        //                     colorByPoint: true,
+        //                     data: [{
+        //                         name: 'Always',
+        //                         y: 21.3
+        //                     }, {
+        //                         name: 'Sometimes',
+        //                         y: 18.7
+        //                     }, {
+        //                         name: 'One in a while',
+        //                         y: 20.2
+        //                     }, {
+        //                         name: 'Never',
+        //                         y: 14.2
+        //                     }, {
+        //                         name: 'Prefer not to answer',
+        //                         y: 25.6
+        //                     }]
+        //                 }]
+        //             });
+        //         }
+        //     });
+        // });
+
     </script>
 </body>
 </html>
