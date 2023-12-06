@@ -26,7 +26,10 @@ function createPoll() {
     let emptyArray = [];
 
     if(!validateForm()) {
-        alert("Please fill out all fields before submitting");
+        Swal.fire({
+            title: "Please fill out all fields before submitting",
+            icon: "error"
+        });
         return;
     }
 
@@ -61,7 +64,10 @@ function createPoll() {
 
             }
         } else {
-            alert("Unknown element selected")
+            Swal.fire({
+                title: "Unknown Element Selected",
+                icon: "error"
+            });
         }
         questions.push(question);
     });
@@ -83,8 +89,12 @@ function createPoll() {
         success: function(text) {
             window.location.replace("/display-polls");
         },
-        error: function() {
-            alert("Error");
+        error: function(jqXHR, textStatus, errorThrown) {
+            Swal.fire({
+                title: "Failed to submit poll",
+                text: jqXHR.responseText,
+                icon: "error"
+            });
         }
     });
 }
@@ -129,7 +139,11 @@ function validateForm() {
                 isValid = false;
             }
         } else {
-            alert("Unknown element selected")
+
+            Swal.fire({
+                title: "Unknown Element Selected",
+                icon: "error"
+            });
             isValid = false;
         }
     });

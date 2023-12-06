@@ -373,6 +373,9 @@ nav button:hover {
     transition: all 0.5s ease 0s;
 }
 
+/*Sweet Alert Styling*/
 
-
+.swal2-confirm {
+    background-color: var(--button-color) !important;
+}
 

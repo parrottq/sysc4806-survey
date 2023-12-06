@@ -60,11 +60,18 @@ function saveAnswers() {
         contentType: "application/json; charset=utf-8",
 
         success: function(text) {
-            alert("Poll has been submitted");
+            Swal.fire({
+                title: "Your answers have been saved!",
+                icon: "sucess"
+            });
             window.location.href = "/display-polls"
         },
         error: function(xhr, status, error) {
-            alert("Error: " + xhr.responseText);
+            Swal.fire({
+                title: "Failed to submit poll",
+                text: xhr.responseText,
+                icon: "error"
+            });
         }
     });
 }
