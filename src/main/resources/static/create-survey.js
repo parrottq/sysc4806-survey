@@ -87,7 +87,13 @@ function createPoll() {
         data: JSON.stringify(poll),
         contentType: "application/json; charset=utf-8",
         success: function(text) {
-            window.location.replace("/display-polls");
+            Swal.fire({
+                title: "Poll has been created!",
+                icon: "success"
+            }).then((result) => {
+                window.location.replace("/display-polls");
+            })
+
         },
         error: function(jqXHR, textStatus, errorThrown) {
             Swal.fire({
@@ -152,8 +158,6 @@ function validateForm() {
 }
 
 
-
-//////////
 
 /**
  * Adds a choice element to the button it was called from
