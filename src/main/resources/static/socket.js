@@ -1,6 +1,17 @@
-function subscribe(pollId) {
-    let socket = new WebSocket("ws:" + window.location.host + "/poll/results-stream");
+let socket;
 
+function subscribe(pollId) {
+    socket = new WebSocket("wss:" + window.location.host + "/poll/results-stream");
+
+    socket.onerror = function(event) {
+        socket = new WebSocket("ws:" + window.location.host + "/poll/results-stream");
+        socket_callbacks(pollId)
+    }
+
+    socket_callbacks(pollId)
+}
+
+function socket_callbacks(pollId) {
     socket.onopen = function(e) {
         socket.send(JSON.stringify({"type":"Subscribe","pollId":pollId}))
         console.log("[open] Connection Established")
