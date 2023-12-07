@@ -92,7 +92,8 @@ $(document).ready(function () {
                 },
                 tooltip: {
                     formatter: function () {
-                        return '<b>' + this.point.name + '</b>: ' + this.point.y;
+                        var sanitized = $("<p>").text(this.point.name).html();
+                        return '<b>' + sanitized + '</b>: ' + this.point.y;
                     }
                 },
 
