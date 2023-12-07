@@ -62,8 +62,10 @@ function saveAnswers() {
             Swal.fire({
                 title: "Your answers have been saved!",
                 icon: "sucess"
-            });
-            window.location.href = "/display-polls"
+            }).then((result) => {
+                window.location.href = "/display-polls"
+            })
+
         },
         error: function(xhr, status, error) {
             Swal.fire({
@@ -71,6 +73,7 @@ function saveAnswers() {
                 text: xhr.responseText,
                 icon: "error"
             });
+
         }
     });
 }
