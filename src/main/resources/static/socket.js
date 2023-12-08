@@ -28,19 +28,17 @@ function socket_callbacks(pollId) {
         }
         for (let i = 0; i < docQuestions.length; i++) {
             let question = questions[i];
+            let answer = Array.from(docQuestions[i].querySelectorAll("[id=answers]"));
+            answer[0].replaceChildren([]);
+            let elem = document.createElement("div");
+            for (let w = 0; w < questions[i].answers.length; w++) {
+                let child = document.createElement("p");
+                $(child).text(questions[i].answers[w].answerChoice).val();
+                elem.appendChild(child);
+            }
+            answer[0].appendChild(elem);
 
-            if (question.questionType === 'Text') {
-                let answer = Array.from(docQuestions[i].querySelectorAll("[id=answers]"));
-                answer[0].replaceChildren([]);
-                let elem = document.createElement("div");
-                for (let w = 0; w < questions[i].answers.length; w++) {
-                    let child = document.createElement("p");
-                    $(child).text(questions[i].answers[w].answerChoice).val();
-                    elem.appendChild(child);
-                }
-                answer[0].appendChild(elem);
-
-            } else if (question.questionType === 'MultipleChoice') {
+            if (question.questionType === 'MultipleChoice') {
 
                 let chart = Highcharts.charts.find((c) => c.renderTo.id === 'pie-chart-' + question.id);
                 if (chart) {
