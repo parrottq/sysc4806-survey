@@ -14,15 +14,6 @@ The production version of this application can be found at: https://mini-survey.
 
 ![SYSC4806_SurveyChimp_UML](https://github.com/parrottq/sysc4806-survey/assets/89619482/facd81bf-d073-47c7-8c35-e534d9fa8c69)
 
-
-## Upcoming Sprint Goals
-
-1. Implement Close Poll Function
-2. Implement User System
-3. Implement Navbar
-4. Change toString implementations to json imlpementations
-
-
 ## Tools
 
 This backend of this project is built using the java programming language and Springboot framework. The frontend is constructed using plain html, css, and javascript. The database supporting this project is an H2 database which uses SQL. 
@@ -42,7 +33,7 @@ Schema:
 
 The application allows surveyors to create a survey with a list of questions. These questions can be open-ended (text), or asking to choose among many options.
 
-Users can then fill out the survey that is a form generated based on the type of questions in the survey. Once the surveyor closes the survey, a survey result is generated, compiling the answers: for open-ended questions, the answers are just listed as-is, for number questions a histogram of the answers is generated, for choice questions a pie chart is generated.
+Users can then fill out the survey that is a form generated based on the type of questions in the survey. Once the surveyor closes the survey, a survey result is generated, compiling the answers: for open-ended questions, the answers are just listed as-is, for choice questions a pie chart is generated.
 
 
 ## Credits:
